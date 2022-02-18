@@ -1,0 +1,86 @@
+{{ header }}
+{{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-delete" data-placement="top"
+							title="{{ button_delete }}" class="btn btn-danger" form="form-online">
+							<i class="far fa-trash-alt"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{# </ page header #}
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-th-list"></i>
+					{{ text_list }}
+				</div>
+				<div class="card-body">
+					<form enctype="multipart/form-data" id="form-online">
+						<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+						<div class="table-responsive">
+							<table id="table-list" class="table table-bordered" data-order='[[ 1, "asc" ]]'>
+								<thead>
+									<tr>
+										<th width="1%" class="no-sort">
+											<input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" id="selectAll"/>
+										</th>
+										<th>{{ column_ip }}</th>
+										<th>{{ column_customer }}</th>
+										<th>{{ column_url }}</th>
+										<th>{{ column_referer }}</th>
+										<th>{{ column_date_added }}</th>
+										<th>{{ column_action }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if customers %}
+										{% for customer in customers %}
+											<tr>
+											<th scope="row">
+												{% if customer.customer_online_id in selected %}
+													<input type="checkbox" name="selected[]" value="{{ customer.customer_online_id }}" checked="checked"/>
+												{% else %}
+													<input type="checkbox" name="selected[]" value="{{ customer.customer_online_id }}"/>
+												{% endif %}
+											</th>
+												<td>{{ customer.ip }}</td>
+												<td>{{ customer.customer }}</td>
+												<td class="text-break">{{ customer.url }}</td>
+												<td class="text-break">{{ customer.referer }}</td>
+												<td>{{ customer.date_added}}</td>
+												<td class="text-center">
+													{% if customer.customer_id %}
+														<a href="{{ customer.edit }}" class="btn btn-primary btn-sm" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}">
+															<i class="far fa-edit"></i>
+														</a>
+													</tr>
+												{% else %}
+													<a href="#" class="btn btn-primary btn-sm disabled" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}">
+														<i class="far fa-edit"></i>
+													</a>
+												{% endif %}
+											</tr>
+										</td>
+									{% endfor %}
+								{% endif %}
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

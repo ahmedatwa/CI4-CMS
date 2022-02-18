@@ -1,0 +1,52 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+						title="{{ button_save }}" class="btn btn-primary" form="form-customer-group">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top"
+						title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_form }}
+			</div>
+			<div class="card-body">
+				<form id="form-customer-group" accept-charset="utf-8" encrypt="multipart/form-data">
+				<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+					<div class="form-group row">
+						<label for="input_name" class="col-sm-2 col-form-label required">{{ entry_name }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="name" class="form-control" id="input-name" placeholder="{{ entry_name }}" value="{{ name }}">
+						</div>
+					</div>					
+					<div class="form-group row">
+						<label for="input_description" class="col-sm-2 col-form-label">{{ entry_description }}</label>
+						<div class="col-sm-10">
+							<textarea type="text" name="description" class="form-control" rows="5" id="input-description" placeholder="{{ entry_description }}">{{ description }}</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- Card Body -->
+		</div>
+	</div>
+</main>
+{{ footer }}

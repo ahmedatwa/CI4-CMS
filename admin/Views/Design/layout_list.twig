@@ -1,0 +1,71 @@
+{{ header }}
+{{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ add }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_add }}" class="btn btn-primary">
+							<i class="fas fa-plus"></i>
+						</a>
+						<a href="{{ delete }}" role="button" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_delete }}" class="btn btn-danger disabled" name="button-delete" form="form-banner">
+							<i class="far fa-trash-alt"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+							<li class="breadcrumb-item">
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{# </ page header #}
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-th-list"></i>
+					{{ text_list }}
+				</div>
+				<div class="card-body">
+					<form id="form-layout" accept-charset="utf-8" encrypt="multipart/form-data">
+						<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+						<div class="table-responsive">
+							<table id="table-list" class="table table-bordered table-striped" data-order='[[ 1, "desc" ]]'>
+								<thead class="">
+									<tr>
+										<th width="1%" class="no-sort">
+											<input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" id="selectAll"/>
+										</th>
+										<th>{{ column_name }}</th>
+										<th width="10%" class="text-center no-sort">{{ column_action }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for layout in layouts %}
+										<tr>
+											<th scope="row">
+												{% if layout.layout_id in selected %}
+													<input type="checkbox" name="selected[]" value="{{ layout.layout_id }}" checked="checked"/>
+												{% else %}
+													<input type="checkbox" name="selected[]" value="{{ layout.layout_id }}"/>
+												{% endif %}
+											</th>
+											<td>{{ layout.name }}</td>
+											<td class="text-center">
+												<a href="{{ layout.edit }}" role="button" class="btn btn-primary btn-sm" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}">
+													<i class="far fa-edit"></i>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	{{ footer }}

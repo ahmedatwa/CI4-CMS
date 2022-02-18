@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{ lang }}" direction="{{ direction }}">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="{{ author }}">
+		<base href="{{ base }}"/>
+		<link rel="icon" href="{{ ico }}">
+		<title>{{ title }}</title>
+		{% if description %}
+			<meta name="description" content="{{ description }}"/>
+		{% endif %}
+		{% if keywords %}
+			<meta name="keywords" content="{{ keywords }}"/>
+		{% endif %}
+		<!-- Bootstrap core CSS -->
+		<link href="{{ bootstrap_css }}" rel="stylesheet">
+		<link href="{{ stylesheet_css }}" rel="stylesheet">
+		<link href="{{ fontawesome_css }}" rel="stylesheet">
+		<script type="text/javascript" src="catalog/default/javascript/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="catalog/default/javascript/parallax.min.js"></script>
+		<script type="text/javascript" src="catalog/default/javascript/common.js"></script>
+		{% for style in styles %}
+			<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+		{% endfor %}
+		{% for script in scripts %}
+			<script src="{{ script }}" type="text/javascript"></script>
+		{% endfor %}
+		{% for link in links %}
+			<link href="{{ link.href }}" rel="{{ link.rel }}"/>
+		{% endfor %}
+		{% for analytic in analytics %}
+			{{ analytic }}
+		{% endfor %}
+	</head>
+	<body>
+		{% if global_alert %}
+			<div class="alert alert-warning text-center border rounded-0 mb-0" role="alert">
+				<i class="fas fa-exclamation-triangle"></i>
+				{{ global_alert }}</div>
+		{% endif %}
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2 px-md-4 shadow-sm">
+				<a class="navbar-brand" href="{{ home }}">
+					<img src="{{ logo }}" alt="{{ config_name }}"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse pt-2" id="navbarNavDropdown">
+					<ul class="navbar-nav w-100">
+						{% for information in informations %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ information.href }}">{{ information.title }}</a>
+							</li>
+						{% endfor %}
+						{% if not logged %}
+							<li class="nav-item ml-auto">
+								<a class="nav-link" href="{{ login }}">
+									<i class="fas fa-sign-in-alt"></i>
+									{{ text_login }}</a>
+							</li>
+						{% endif %}
+						{% if logged %}
+							<li class="nav-item dropdown ml-auto">
+								<a class="nav-link dropdown-toggle" href="#" id="userDropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user-circle"></i>
+									{{ username }}
+								</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdownMenu">
+									<a class="dropdown-item" href="{{ dashboard }}">{{ text_dashboard }}</a>
+									<a class="dropdown-item" href="{{ profile }}">{{ text_profile }}</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ logout }}">{{ text_logout }}</a>
+								</div>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+		</header>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-blog-post">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+				<form enctype="multipart/form-data" id="form-blog-comment" accept-charset="utf-8">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label for="input-title" class="col-md-2 col-form-label required">{{ entry_name }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-title" value="{{ name }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-body" class="col-md-2 col-form-label required">{{ entry_email }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-email" value="{{ email }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-body" class="col-md-2 col-form-label required">{{ entry_comment }}</label>
+						<div class="col-md-10">
+							<textarea class="form-control" cols="7" rows="10" type="text" data-ci-toggle="summernote" id="input-comment" value="{{ comment }}">{{ comment }}</textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label required">{{ entry_status }}</label>
+						<div class="col-md-10">
+							<select class="form-control" name="status">
+								{% if status %}
+									<option value="1" selected>{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected>{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+<script src="vendor/summernote/summernote-bs4.js"></script> 
+<script src="javascript/summernote.js"></script> 
+<link href="vendor/summernote/summernote-bs4.css" rel="stylesheet">	
+{{ footer }}

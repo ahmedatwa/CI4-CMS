@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+		<meta name="description" content=""/>
+		<meta name="author" content="A0twa"/>
+		<title>{{ title }}</title>
+		<base href="{{ base }}">
+		<link rel="stylesheet" type="text/css" href="vendor/DataTables/DataTables-1.10.25/css/dataTables.bootstrap4.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/sweetalert2/sweetalert2.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/fontawesome-free/css/all.min.css"/>
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="vendor/gijgo/css/gijgo.min.css"/>
+		{% for style in styles %}
+		<link rel="{{ style.rel }}" type="text/css" href="{{ style.href }}" media="{{ style.media }}"/>
+		{% endfor %}
+		<link rel="stylesheet" type="text/css" href="stylesheet/styles.css"/>
+		{# Scripts #}
+		<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="vendor/sweetalert2/sweetalert2.min.js"></script>
+		{# DataTables #}
+		<script type="text/javascript" src="vendor/DataTables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="vendor/DataTables/DataTables-1.10.25/js/dataTables.bootstrap4.min.js"></script>
+		<script type="text/javascript" src="vendor/DataTables/plugins/dataTables.conditionalPaging.js"></script>
+		<script type="text/javascript" src="javascript/datatables.js"></script>
+		<script type="text/javascript" src="vendor/gijgo/js/gijgo.min.js"></script>
+		{% for script in scripts %}
+			<script type="text/javascript" src="{{ script }}"></script>
+		{% endfor %}
+		<script type="text/javascript" src="javascript/common.js"></script>
+	</head>
+	<body>
+		<div id="container">
+				<nav class="navbar navbar-expand-lg" id="header-nav">
+					<div class="container-fluid">
+						<a id="header-logo" class="navbar-header" href="{{ home }}">
+							<img src="images/logo.svg" alt="{{ configName }}" title="{{ configName }}" width="180" height="35" class="my-auto">
+						</a>
+						<button type="button" id="button-menu" class="btn btn-white">
+							<i class="fas fa-bars"></i>
+							<span>Toggle Sidebar</span>
+						</button>
+						<ul class="nav">
+						{% if logged %}
+							<li class="nav-item">
+								<div class="dropdown">
+									<a class="dropdown-toggle" href="#" role="button" id="mainDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<img src="{{ image }}" alt="{{ "#{firstname} #{lastname}" | title }}" title="{{ username }}" class="rounded" width="45" height="45" id="user-profile">
+										{{ "#{firstname} #{lastname}" | title }}
+										<i class="fas fa-caret-down"></i>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="mainDropdown">
+										<a class="dropdown-item" href="{{ profile }}">
+											<i class="fas fa-user-circle"></i>
+											{{ text_profile }}</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{{ site_url }}" target="_blank">
+											<i class="fas fa-home"></i>
+											{{ text_site }}</a>
+										<a class="dropdown-item" href="{{ setting }}">
+											<i class="fas fa-cog"></i>
+											{{ text_setting }}</a>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ logout }}">
+									<i class="fas fa-sign-out-alt"></i>
+									{{ text_logout }}</a>
+							</li>
+						</ul>
+						{% endif %}
+					</div>
+				</nav>
+			

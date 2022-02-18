@@ -1,0 +1,137 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+							title="{{ button_save }}" class="btn btn-primary" form="form-mail">
+							<i class="fa fa-save"></i>
+						</a>
+						<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}"
+							class="btn btn-light border">
+							<i class="fa fa-reply"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-pen"></i>
+					{{ text_mail }}
+				</div>
+				<div class="card-body">
+				<form enctype="multipart/form-data" method="post" action="{{ action }}" id="form-mail" accept-charset="utf-8">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label for="input-from" class="col-md-2 col-form-label">{{ entry_from }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-from" name="from" value="{{ from }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-to" class="col-md-2 col-form-label">{{ entry_to }}</label>
+						<div class="col-md-10">
+						<select name="to" id="input-to" class="form-control">
+							<option value="newsletter">{{ text_newsletter }}</option>
+							<option value="customer_all">{{ text_customer_all }}</option>
+							<option value="customer_group">{{ text_customer_group }}</option>
+							<option value="customer">{{ text_customer }}</option>
+						</select>
+						</div>
+					</div>
+					<div class="form-group row to" id="to-customer-group">
+						<label for="input-customer-group" class="col-md-2 col-form-label">{{ entry_customer_group }}</label>
+						<div class="col-md-10">
+							<select class="form-control" name="customer_group_id" aria-label="select_customer_group">
+								{% for customer_group in customer_groups %}
+									{% if customer_group.customer_group_id == customer_group_id %}
+										<option value="{{ customer_group.customer_group_id }}" selected>
+											{{ customer_group.name }}
+										</option>
+									{% else %}
+										<option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}
+										</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row to" id="to-customer">
+						<label for="input-customer" class="col-md-2 col-form-label">{{ entry_customer }}</label>
+						<div class="col-md-10">
+							<select class="form-control" name="customer[]" data-width="100%" multiple="multiple">
+								<option value="{{ name }}">{{ name }}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-subject" class="col-md-2 col-form-label required">{{ entry_subject }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="subject" id="input-subject" name="subject" value="{{ subject }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-subject" class="col-md-2 col-form-label required">{{ entry_message }}</label>
+						<div class="col-md-10">
+							<textarea class="form-control" type="message" id="input-message" data-ci-toggle="summernote" name="message">{{ message }}</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+				<!-- Card Body -->
+			</div>
+		</div>
+	</main>
+<script src="vendor/summernote/summernote-bs4.js"></script>
+
+<script src="javascript/summernote.js"></script>
+<link href="vendor/summernote/summernote-bs4.css" rel="stylesheet">
+<script src="vendor/select2/js/select2.min.js"></script>
+<link href="vendor/select2/css/select2.min.css" rel="stylesheet">
+  <script type="text/javascript">
+$('select[name=\'to\']').on('change', function() {
+	$('.to').hide();
+	$('#to-' + this.value.replace('_', '-')).show();
+});
+$('select[name=\'to\']').trigger('change');
+
+
+$("select[name*=\'customer\']").select2({
+	ajax: {
+    url: "index.php/customer/customer/autocomplete?user_token={{ user_token }}",
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+	return {
+		name: params.term,
+	};
+},
+    processResults: function (data, params) {
+	var results = $.map(data, function (item) {
+		item.id = item.customer_id;
+		item.text = item.name;
+		return item;
+	});
+	   return {
+		results: results,
+	};
+},
+cache: true
+},
+minimumInputLength: 1,
+placeholder: '{{ text_select }}',
+allowClear: true,
+minimumResultsForSearch: 1,
+width: '100%'
+});
+</script>
+{{ footer }}

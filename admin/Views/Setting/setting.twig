@@ -1,0 +1,393 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-setting">
+						<i class="fa fa-save"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-th-list"></i>
+				{{ text_form }}
+			</div>
+			<ul class="nav nav-tabs mx-2 mt-3" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">{{ tab_general }}</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="site-tab" data-toggle="tab" href="#site" role="tab" aria-controls="site" aria-selected="false">{{ tab_site }}</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="option-tab" data-toggle="tab" href="#option" role="tab" aria-controls="option" aria-selected="false">{{ tab_local }}</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false">{{ tab_social }}</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="server-tab" data-toggle="tab" href="#server" role="tab" aria-controls="server" aria-selected="false">{{ tab_server }}</a>
+				</li>
+			</ul>
+			<div class="card-body">
+				<form id="form-setting" accept-charset="utf-8" encrypt="multipart/form-data">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="config-meta-title">{{ entry_meta_title }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="config-meta-title" name="config_meta_title" value="{{ config_meta_title }}" placeholder="{{ entry_meta_title }}" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label" for="input-meta-description">{{ entry_meta_description }}
+								</label>
+								<div class="col-sm-10">
+									<textarea id="config-meta-description" name="config_meta_description" row="5" class="form-control" placeholder="{{ entry_meta_description }}">{{ config_meta_description }}</textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label" for="input-meta-keyword">{{ entry_meta_keyword }}
+								</label>
+								<div class="col-sm-10">
+									<textarea id="input-meta-keyword" name="config_meta_keyword" row="5" class="form-control" placeholder="{{ entry_meta_keyword }}" data-toggle="tagsinput">{{ config_meta_keyword }}</textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label" for="input-theme">{{ entry_theme }}
+								</label>
+								<div class="col-sm-10">
+									<select class="form-control" name="config_theme">
+										{% for theme in themes %}
+											{% if theme.value == config_theme %}
+												<option value="{{ theme.value }}" selected>{{ theme.text }}</option>
+											{% else %}
+												<option value="{{ theme.value }}">{{ theme.text }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label" for="input-template-engine">{{ entry_template_engine }}
+								</label>
+								<div class="col-sm-10">
+									<select class="form-control" name="config_template_engine">
+										{% if config_template_engine == 'twig' %}
+											<option value="twig" selected>{{ text_twig }}</option>
+											<option value="template">{{ text_template }}</option>
+										{% else %}
+											<option value="twig">{{ text_twig }}</option>
+											<option value="template" selected>{{ text_template }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input_logo" class="col-sm-2 col-form-label">{{ entry_logo }}</label>
+								<div class="col-md-10">
+									<a href="" id="thumb-image" data-ci-toggle="image" class="img-fluid">
+										<img src="{{ logo }}" alt="" title="" data-placeholder="{{ placeholder }}" class="img-thumbnail"/></a>
+									<input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-image"/>
+								</div>
+							</div>
+						</div>
+						{# ...</div general Tab  #}
+						<div class="tab-pane fade" id="site" role="tabpanel" aria-labelledby="site-tab">
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-name">{{ entry_name }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="input-name" name="config_name" class="form-control" placeholder="{{ entry_name }}" value="{{ config_name }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-owner">{{ entry_owner }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="input-owner" name="config_owner" class="form-control" placeholder="{{ entry_owner }}" value="{{ config_owner }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-address">{{ entry_address }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="input-address" name="config_address" class="form-control" placeholder="{{ entry_address }}" value="{{ config_address }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-email">{{ entry_email }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="input-email" name="config_email" class="form-control" placeholder="{{ entry_email }}" value="{{ config_email }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-telephone">{{ entry_telephone }}
+								</label>
+								<div class="col-sm-10">
+									<input type="text" id="input-telephone" name="config_telephone" class="form-control" placeholder="{{ entry_telephone }}" value="{{ config_telephone }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 control-label required" for="input-opening-times">{{ entry_opening_times }}
+								</label>
+								<div class="col-sm-10">
+									<textarea type="text" id="input-opening-times" name="config_opening_times" class="form-control" rows="5" placeholder="{{ entry_opening_times }}">
+										{{ config_opening_times }}</textarea>
+								</div>
+							</div>
+						</div>
+						{# ...</div site Tab  #}
+						<div class="tab-pane fade" id="option" role="tabpanel" aria-labelledby="option-tab">
+							<div class="form-group row">
+								<label class="col-sm-3 control-label" for="input-language">{{ entry_language }}</label>
+								<div class="col-sm-9">
+									<select name="config_language" id="input-language" class="form-control">
+										{% for language in languages %}
+											{% if language.code == config_language %}
+												<option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
+											{% else %}
+												<option value="{{ language.code }}">{{ language.name }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label" for="input-admin-language">{{ entry_admin_language }}</label>
+								<div class="col-sm-9">
+									<select name="config_admin_language" id="input-admin-language" class="form-control">
+										{% for language in languages %}
+											{% if language.code == config_admin_language %}
+												<option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
+											{% else %}
+												<option value="{{ language.code }}">{{ language.name }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label" for="input-language">{{ entry_currency }}</label>
+								<div class="col-sm-9">
+									<select name="config_currency" id="input-language" class="form-control">
+										{% for currency in currencies %}
+											{% if currency.code == config_currency %}
+												<option value="{{ currency.code }}" selected="selected">{{ currency.title }}</option>
+											{% else %}
+												<option value="{{ currency.code }}">{{ currency.title }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label required" for="input-config-admin-limit">{{ entry_admin_limit }}
+								</label>
+								<div class="col-sm-9">
+									<input type="text" id="input-admin-limit" name="config_admin_limit" class="form-control" placeholder="{{ entry_admin_limit }}" value="{{ config_admin_limit }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label required" for="input-login-attempts">{{ entry_login_attempts }}
+									<span data-toggle-tooltip="tooltip" data-placement="top" title="{{ help_login_attempts }}">
+										<i class="fas fa-question-circle"></i>
+									</span>
+								</label>
+								<div class="col-sm-9">
+									<input type="text" id="input-login-attempts" name="config_login_attempts" class="form-control" placeholder="{{ entry_login_attempts }}" value="{{ config_login_attempts }}">
+								</div>
+							</div>
+							<fieldset>
+								<legend>{{ text_customer }}</legend>
+								<div class="form-group row">
+									<label class="col-sm-3 control-label" for="input-customer-activity">{{ entry_customer_activity }}
+									</label>
+									<div class="col-sm-9">
+										{% if config_customer_activity  == 1 %}
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_activity" value="1" checked>
+												<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_activity" value="0">
+												<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+											</div>
+										{% else %}
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_activity" value="1">
+												<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_activity" value="0" checked>
+												<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3 control-label" for="input-customer-activity">{{ entry_customer_online }}
+									</label>
+									<div class="col-sm-9">
+										{% if config_customer_online == 1 %}
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_online" value="1" checked>
+												<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_online" value="0">
+												<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+											</div>
+										{% else %}
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_online" value="1">
+												<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input class="form-check-input" type="radio" name="config_customer_online" value="0" checked>
+												<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>{{ text_chat_widget }}</legend>
+								<div class="form-group row">
+									<label class="col-sm-3 control-label" for="chat_widget_code">{{ entry_config_chat_widget }}</label>
+									<div class="col-sm-9">
+										<textarea class="form-control" name="config_chat_widget" id="config_chat_widget" rows="5">{{ config_chat_widget }}</textarea>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<!-- ./End tab_option -->
+						<div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab" aria-labelledby="nav-social-tab">
+							{% set social_row = 0 %}
+							<table class="table table-bordered" id="table-social-networks">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Link</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for social in config_social_networks %}
+										<tr id="social-row{{ social_row }}">
+											<td width="20%"><input name="config_social_networks[{{ social_row }}][name]" value="{{ social.name }}" class="form-control" id="input-social-name{{ social_row }}"/>
+											</td>
+											<td><input name="config_social_networks[{{ social_row }}][href]" value="{{ social.href }}" class="form-control" id="input-social-name{{ social_row }}"/>
+											</td>
+											<td width="4%">
+												<button type="button" onclick="$('#social-row{{ social_row }}, .tooltip').remove();" data-toggle-tooltip="tooltip" title="{{ button_remove }}" class="btn btn-danger">
+													<i class="fa fa-minus-circle"></i>
+												</button>
+											</td>
+										</tr>
+										{% set social_row = social_row + 1 %}
+									{% endfor %}
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="3">
+											<button id="button-social-add" type="button" class="btn btn-primary float-right" data-toggle-tooltip="tooltip" title="{{ button_add }}" data-placement="top">
+												<i class="fas fa-plus-circle"></i>
+											</button>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						{# ...</div local Tab  #}
+						<div class="tab-pane fade" id="server" role="tabpanel" aria-labelledby="server-tab">
+							<div class="form-group row">
+								<label for="input-maintenance" class="col-sm-3 col-form-label">{{ entry_maintenance }}</label>
+								<div class="col-sm-9">
+									{% if config_maintenance == 1 %}
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="config_maintenance" value="1" checked>
+											<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="config_maintenance" value="0">
+											<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+										</div>
+									{% else %}
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="config_maintenance" value="1">
+											<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="config_maintenance" value="0" checked>
+											<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="global-alert" class="col-sm-3 col-form-label">{{ entry_global_alert }}</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="config_global_alert" value="{{ config_global_alert }}" placeholder="{{ config_global_alert_help }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label" for="input-file-ext-allowed">{{ entry_file_ext_allowed }}
+									<span data-toggle-tooltip="tooltip" title="{{ help_file_ext_allowed }}">
+										<i class="fas fa-question-circle"></i>
+									</span>
+								</label>
+								<div class="col-sm-9">
+									<textarea name="config_file_ext_allowed" rows="5" placeholder="{{ entry_file_ext_allowed }}" id="input-file-ext-allowed" class="form-control">{{ config_file_ext_allowed }}</textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 control-label" for="input-file-mime-allowed">{{ entry_file_mime_allowed }}
+									<span data-toggle-tooltip="tooltip" title="{{ help_file_mime_allowed }}">
+										<i class="fas fa-question-circle"></i>
+									</span>
+								</label>
+								<div class="col-sm-9">
+									<textarea name="config_file_mime_allowed" rows="5" placeholder="{{ entry_file_mime_allowed }}" id="input-file-mime-allowed" class="form-control">{{ config_file_mime_allowed }}</textarea>
+								</div>
+							</div>
+						</div>
+						{# </div server tab #}
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+<script type="text/javascript">
+	var social_row = {{ social_row }};
+$('#button-social-add').on('click', function () {
+html = '<tr id="social-row' + social_row + '">';
+html += '<td width="20%"><input type="text" class="form-control" name="config_social_networks[' + social_row + '][name]"/></td>';
+html += '<td><input type="text" class="form-control" name="config_social_networks[' + social_row + '][href]"/></td>';
+html += '<td><button type="button" class="btn btn-danger" id="button-delete" onclick="$(\'#social-row' + social_row + ', .tooltip\').remove();" data-toggle-tooltip="tooltip" data-placement="top" title="Delete"><i class="fa fa-minus-circle"></i></button></td>';
+html += '</tr>';
+$('#table-social-networks').append(html);
+social_row++;
+});
+$('#button-delete').remove();
+</script>
+{{ footer }}

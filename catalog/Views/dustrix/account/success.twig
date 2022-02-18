@@ -1,0 +1,29 @@
+{{ header }} {{ menu }}
+<div class="jumbotron">
+	<div class="container-fluid">
+		<h2 class="display-5">{{ heading_title }}</h2>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ol>
+		</nav>
+
+	</div>
+</div>
+<div class="container-fluid">
+	<!-- Container -->
+	<div class="section margin-top-30">
+		<div class="row">
+			<div class="m-auto">
+				<section class="m-5">
+					{{ text_message }}
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+{{ footer }}

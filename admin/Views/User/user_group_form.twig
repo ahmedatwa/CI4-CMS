@@ -1,0 +1,109 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+							title="{{ button_save }}" class="btn btn-primary" form="form-usergroup">
+							<i class="fa fa-save"></i>
+						</a>
+						<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}"
+							class="btn btn-light border">
+							<i class="fa fa-reply"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-pen"></i>
+					{{ text_form }}
+				</div>
+				<div class="card-body">
+					<form id="form-usergroup" accept-charset="utf-8" encrypt="multipart/form-data">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+						<div class="form-group row">
+							<label for="input_name" class="col-sm-2 col-form-label required">{{ entry_name }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="name" class="form-control" id="input-name"
+									aria-describedby="input_name" value="{{ name }}">
+							</div>
+						</div>
+						{# Access #}
+						<div class="row">
+							<label class="col-sm-2 control-label" for="input-access"> {{ entry_access }}
+							</label>
+							<div class="col-sm-10">
+								<div class="card border" style="height: 150px; overflow: auto;">
+									<div class="card-body">
+										{% for permission in permissions %}
+										<div class="checkbox">
+											<label>
+												{% if permission in access %}
+												<input type="checkbox" name="permission[access][]"
+													value="{{ permission }}" checked="checked" />
+												{{ permission }}
+												{% else %}
+												<input type="checkbox" name="permission[access][]"
+													value="{{ permission }}" />
+												{{ permission }}
+												{% endif %}
+											</label>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<button type="button"
+									onclick="$(this).parent().find(':checkbox').prop('checked', true);"
+									class="btn btn-link">{{ text_select_all }}</button> / <button type="button"
+									onclick="$(this).parent().find(':checkbox').prop('checked', false);"
+									class="btn btn-link">{{ text_unselect_all }}</button>
+							</div>
+						</div>
+						{# Modify #}
+						<div class="row">
+							<label class="col-sm-2 control-label" for="input-access"> {{ entry_modify }}
+							</label>
+							<div class="col-sm-10">
+								<div class="card border" style="height: 150px; overflow: auto;">
+									<div class="card-body">
+										{% for permission in permissions %}
+										<div class="checkbox">
+											<label>
+												{% if permission in modify %}
+												<input type="checkbox" name="permission[modify][]"
+													value="{{ permission }}" checked="checked" />
+												{{ permission }}
+												{% else %}
+												<input type="checkbox" name="permission[modify][]"
+													value="{{ permission }}" />
+												{{ permission }}
+												{% endif %}
+											</label>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<button type="button"
+									onclick="$(this).parent().find(':checkbox').prop('checked', true);"
+									class="btn btn-link">{{ text_select_all }}</button> / <button type="button"
+									onclick="$(this).parent().find(':checkbox').prop('checked', false);"
+									class="btn btn-link">{{ text_unselect_all }}</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Card Body -->
+			</div>
+		</div>
+	</main>
+	{{ footer }}

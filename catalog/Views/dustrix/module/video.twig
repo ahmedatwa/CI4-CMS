@@ -1,0 +1,19 @@
+<div class="intro-banner dark-overlay big-padding shadow-sm bg-white rounded">
+  <div class="transparent-header-spacer"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="banner-headline-alt">
+          <h3>{{ headline }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="video-container" data-background-image="{{ background_image }}">
+    <video loop autoplay muted>
+      {% for video in videos %}
+      <source src="{{ video.link }}" type="{{ video.mime }}">
+      {% endfor %}
+    </video>
+  </div>
+</div>

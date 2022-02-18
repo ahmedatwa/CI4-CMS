@@ -1,0 +1,94 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a type="button" href="{{ action }}" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-theme">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+				<form enctype="multipart/form-data" id="form-theme" class="form-horizontal">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-directory">{{ entry_directory }}</label>
+						<div class="col-sm-10">
+							<select name="theme_dustrix[dustrix][directory]" id="input-directory" class="form-control">
+								{% for directory in directories %}
+									{% if directory == theme_dustrix.directory %}
+										<option value="{{ directory }}" selected="selected">{{ directory }}</option>
+									{% else %}
+										<option value="{{ directory }}">{{ directory }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-stylesheet">{{ entry_stylesheet }}</label>
+						<div class="col-sm-10">
+							<select name="theme_dustrix[dustrix][stylesheet]" id="input-stylesheet" class="form-control">
+							<option value="">{{ text_select }}</option>
+								{% for stylesheet in stylesheets %}
+									{% if stylesheet == theme_dustrix.css %}
+										<option value="{{ stylesheet }}" selected="selected">{{ stylesheet }}</option>
+									{% else %}
+										<option value="{{ stylesheet }}">{{ stylesheet }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}
+						<span class="d-inline-block" tabindex="0" data-toggle-tooltip="tooltip" title="{{ help_css }}">
+						<i class="fas fa-question-circle"></i></span></label>
+						<div class="col-sm-10">
+							<select name="theme_dustrix[dustrix][status]" id="input-status" class="form-control">
+								{% if theme_dustrix.status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-status">
+							<span data-toggle-tooltip="tooltip" title="{{ help_items_limit }}" position="top">{{ entry_items_limit }}
+								<i class="fas fa-question-circle"></i>
+							</span>
+						</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" name="theme_dustrix[dustrix][items_limit]" value="{{ theme_dustrix.items_limit }}">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

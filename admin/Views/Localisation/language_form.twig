@@ -1,0 +1,93 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-language">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_form }}
+			</div>
+			<div class="card-body">
+				<form id="form-language" accept-charset="utf-8" encrypt="multipart/form-data">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label for="input-name" class="col-md-2 col-form-label required">{{ entry_name }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-name" name="name" value="{{ name }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-locale" class="col-md-2 col-form-label required">
+							<span data-toggle-tooltip="tooltip" title="{{ help_code }}">{{ entry_code }}
+								<i class="fas fa-question-circle"></i>
+							</span>
+						</label>
+						<div class="col-md-10">
+							<select class="form-control" name="code">
+								{% for language in languages %}
+									{% if language == code %}
+										<option value="{{ language }}" selected>{{ language }}</option>
+									{% else %}
+										<option value="{{ language }}">{{ language }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-locale" class="col-md-2 col-form-label required">
+							<span data-toggle-tooltip="tooltip" title="{{ help_locale }}">{{ entry_locale }}
+								<i class="fas fa-question-circle"></i>
+							</span>
+						</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-locale" name="locale" value="{{ locale }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-sort_order" class="col-md-2 col-form-label">{{ entry_sort_order }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="sort_order" id="input-sort-order" name="sort_order" value="{{ sort_order }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label">{{ entry_status }}</label>
+						<div class="col-md-10">
+							<select class="form-control" name="status">
+								{% if status %}
+									<option value="1" selected>{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected>{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- Card Body -->
+		</div>
+	</div>
+</main>
+{{ footer }}

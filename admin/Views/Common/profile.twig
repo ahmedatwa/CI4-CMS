@@ -1,0 +1,98 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ edit }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}" class="btn btn-primary">
+						<i class="fas fa-user-edit"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs mb-3" id="profile" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">{{ tab_general }}</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity" aria-selected="false">{{ tab_activity }}</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+						<div class="form-group row">
+							<label for="input_firstname" class="col-sm-2 col-form-label">{{ entry_image }}</label>
+							<div class="col-md-10">
+								<img src="{{ thumb }}" alt="" title="" data-ci-placeholder="{{ placeholder }}" class="img-thumbnail"/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_firstname" class="col-sm-2 col-form-label">{{ entry_fullname }}</label>
+							<div class="col-sm-10">{{ firstname }}
+								{{ lastname }}</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_username" class="col-sm-2 col-form-label">{{ entry_username }}</label>
+							<div class="col-sm-10">{{ username }}</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
+							<div class="col-sm-10">{{ email }}</div>
+						</div>
+						<fieldset>
+							<legend class="border-bottom mb-3">{{ text_other }}</legend>
+							<div class="form-group row">
+								<label for="input_status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
+								<div class="col-sm-10">{{ status }}</div>
+							</div>
+							<div class="form-group row">
+								<label for="input_user_group" class="col-sm-2 col-form-label">{{ entry_user_group }}</label>
+								<div class="col-sm-10">{{ user_group }}</div>
+							</div>
+						</fieldset>
+					</div>
+					{# general #}
+					<div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+						<table id="table-list" class="table table-bordered table-striped" data-order='[[ 2, "desc" ]]'>
+							<thead>
+								<tr>
+									<td>{{ column_comment }}</td>
+									<td>{{ column_ip }}</td>
+									<td>{{ column_date_added }}</td>
+								</tr>
+							</thead>
+							<tbody>
+								{% for activity in activities %}
+									<tr>
+										<td>{{ activity.comment }}</td>
+										<td class="text-left">{{ activity.ip }}</td>
+										<td class="text-left">{{ activity.date_added }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{# activity #}
+				</div>
+				{# myTabContent #}
+			</div>
+			<!-- Card Body -->
+		</div>
+	</div>
+</main>
+{{ footer }}

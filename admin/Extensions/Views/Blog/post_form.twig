@@ -1,0 +1,153 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-blog-post">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+      <form enctype="multipart/form-data" id="form-blog-comment" accept-charset="utf-8"> 
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<input type="hidden" name="user_id" value="{{ user_id }}"/>
+					<div class="form-group row">
+						<label for="input-title" class="col-md-2 col-form-label required">{{ entry_title }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-title" name="title" value="{{ title }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-body" class="col-md-2 col-form-label required">{{ entry_body }}</label>
+						<div class="col-md-10">
+							<textarea class="form-control" data-toggle="summernote" type="text" id="input-body" name="body">{{ body }}</textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label required">{{ entry_category }}</label>
+						<div class="col-md-10">
+							<select class="form-control mb-2 ml-2" name="category_id" id="input-category-id">
+								<option>{{ text_select }}</option>
+								{% for category in categories %}
+									{% if category.category_id == category_id %}
+										<option value="{{ category.category_id }}" selected>{{ category.name }}</option>
+									{% else %}
+										<option value="{{ category.category_id }}">{{ category.name }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-body" class="col-md-2 col-form-label">{{ entry_tags }}</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" id="input-tags" name="tags" value="{{ tags }}" data-toggle="tagsinput">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-image" class="col-md-2 col-form-label">{{ entry_image }}</label>
+						<div class="col-md-10">
+							<a href="" id="thumb-image" data-ci-toggle="image" class="img-fluid">
+								<img src="{{ thumb }}" alt="" title="" data-ci-placeholder="{{ placeholder }}" class="img-fluid"/></a>
+							<input type="hidden" name="image" value="{{ image }}" id="input-image"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label">{{ entry_status }}</label>
+						<div class="col-md-10">
+							<select class="form-control" name="status">
+								{% if status %}
+									<option value="1" selected>{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected>{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label" for="input-featured">
+							<span data-toggle-tooltip="tooltip" data-placement="top" title="{{ help_featured }}">
+								{{ entry_featured }}
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</label>
+						<div class="col-md-10">
+							{% if featured %}
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="featured" id="input-featured" value="1" checked>
+									<label class="form-check-label" for="input-featured">{{ text_yes }}</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="featured" id="input-featured" value="0">
+									<label class="form-check-label" for="input-featured">{{ text_no }}</label>
+								</div>
+							{% else %}
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="featured" id="input-featured" value="0" checked>
+									<label class="form-check-label" for="input-featured">{{ text_no }}</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="featured" id="input-featured" value="1">
+									<label class="form-check-label" for="input-featured">{{ text_yes }}</label>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label" for="input-trending">
+							<span data-toggle-tooltip="tooltip" data-placement="top" title="{{ help_trending }}">
+								{{ entry_trending }}
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</label>
+						<div class="col-md-10">
+							{% if trending %}
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="trending" id="input-trending" value="1" checked>
+									<label class="form-check-label" for="input-trending">{{ text_yes }}</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="trending" id="input-trending" value="0">
+									<label class="form-check-label" for="input-trending">{{ text_no }}</label>
+								</div>
+							{% else %}
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="trending" id="input-trending" value="0" checked>
+									<label class="form-check-label" for="input-trending">{{ text_no }}</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="trending" id="input-trending" value="1">
+									<label class="form-check-label" for="input-trending">{{ text_yes }}</label>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

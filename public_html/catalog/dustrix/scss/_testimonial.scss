@@ -1,0 +1,206 @@
+
+.testimonial-nav {
+    a {
+        background: #fafafa;
+        display: block;
+        margin-top: 30px;
+        border-radius: 0px !important;
+        padding: 30px;
+        box-sizing: border-box;
+
+        @media (max-width: 767px) {
+            padding: 20px 30px;
+        }
+
+
+        &.active {
+            background-color: #fff !important;
+            color: $theme-color-2 !important;
+            border-right: 4px solid $theme-color-2;
+        }
+
+        .single-client-tab { 
+
+            .profile-img { 
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                background: #eee;
+                float: left;
+                overflow: hidden;
+                margin-right:20px;
+                text-align: center;
+                background-position: center;
+                background-size: cover;
+            }
+        
+            .client-info { 
+                overflow: auto;
+                padding-top: 5px;
+
+
+                h3 { 
+                    font-size: 18px;
+                    line-height: 24px;
+                    color: $second-color;
+                }
+        
+                p { 
+        
+                }
+            }
+        }
+    }
+}
+
+.testimonial-contents {
+    .tab-pane  {
+
+        margin-top: 30px;
+
+        .single-testimonial-content { 
+
+            .engginer-img { 
+                border-style: solid;
+                border-width: 10px;
+                border-color: #fff;
+                background-color: #eee;
+                box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.04);
+                width: 330px;
+                height: 415px;
+                overflow: hidden;
+                float: left;
+                margin-right: 50px;
+
+                @media (max-width: 767px) {
+                    width: 250px;
+                    height: 280px;
+                    float: inherit;
+                    display: block;
+                    margin: 0 auto;
+                }
+
+                img { 
+                    margin-top: 20px;
+
+                    @media (max-width: 767px) {
+                        margin-top: 0;
+                    }
+                }
+            }
+        
+            .content { 
+                overflow: auto;
+                padding-top: 60px;
+
+                @media (max-width: 767px) {
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 30px;
+                }
+
+                .rating-star { 
+                    
+                    i, span  {
+                        color: #ffa200;
+                        transition: all .3s ease-in-out;
+                    }
+
+                    margin-bottom: 15px;
+                }
+        
+                h3 { 
+                    font-size: 22px;
+                    line-height: 150%;
+                    font-weight: 500;
+                    color: $second-color;
+
+                    @media (max-width: 767px) {
+                        font-size: 20px;
+                    }
+                }
+        
+                .theme-btn { 
+                    margin-top: 35px;
+                }
+            }
+        }
+    }
+}
+
+.brand-logo-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.single-testimonial-card { 
+    background-color: #fff;
+    transition: all .3s ease-in-out;
+    padding: 0px 35px 60px;
+    margin-top: 80px;
+
+    @media (max-width: 767px) {
+        padding: 0px 30px 40px;
+    }
+
+    &:hover {
+        box-shadow: 0px 10px 35px 0px rgba(38, 42, 76, 0.1);
+    }
+
+    .client-img { 
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #f8f8f8;
+        box-shadow: 0px 10px 35px 0px rgba(38, 42, 76, 0.1);
+        margin: 0 auto;
+        display: inline-block;
+        margin-top: -50px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .client-info { 
+        margin-top: 15px;
+
+        h4 { 
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+
+        span { 
+        }
+    }
+
+    .feedback { 
+        padding-top: 20px;
+        position: relative;
+        margin-top: 20px;
+
+        &::before {
+            position: absolute;
+            content: "\f10e";
+            left: 50%;
+            top: 0;
+            font-family: $fa;
+            color: $theme-color;
+            font-size: 20px;
+            font-weight: 400;
+            transform: translateX(-50%);
+        }
+
+        p { 
+            margin: 20px 0px;
+        }
+
+        .star { 
+            color: $theme-color;
+            line-height: 1;
+
+            span {
+                margin: 0 1px;
+            }
+        }
+    }
+}

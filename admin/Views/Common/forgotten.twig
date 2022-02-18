@@ -1,0 +1,83 @@
+{{ header }}
+<div class="container my-2 overflow-hidden">
+	<div class="d-flex align-items-center justify-content-center my-5">
+		<div class="card shadow mb-5 bg-body rounded">
+			<div class="card-header mb-1">
+				<i class="fas fa-lock"></i>
+				{{ heading_title }}
+			</div>
+			<div class="card-body p-auto mx-4">
+				<div class="row no-gutters h-100">
+					<div class="col d-none d-sm-block">
+						<div class="login100-pic" data-tilt>
+							<img src="images/forgot.png" alt="IMG" width="250px">
+						</div>
+					</div>
+					<div class="col">
+						<form class="login100-form" id="form-forgot" accept-charset="utf-8" encrypt="multipart/form-data">
+                        <input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+							<div class="form-group row">
+								<label for="input-email" class="font-weight-bold">{{ text_email }}</label>
+								<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-email">
+											<i class="fas fa-envelope"></i>
+										</span>
+									<input type="email" class="form-control" name="email" id="input-email" placeholder="{{ entry_email }}" aria-label="email">
+								</div>
+							</div>
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+								<button type="button" class="btn btn-primary text-center" id="button-forgot">
+									<i class="fas fa-sign-in-alt mr-1"></i>
+									{{ button_reset }}</button>
+								<a role="button" href="{{ cancel }}" class="btn btn-light">
+									<i class="fas fa-reply"></i>
+								</a>
+							</div>
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript" src="vendor/tilt/tilt.jquery.js"></script>
+<script type="text/javascript">
+$('#button-forgot').on('click', function() {
+    $.ajax({
+        url: '{{ forgotten }}',
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        method: 'POST',
+        dataType: 'json',
+        data: $('#form-forgot').serialize(),
+        beforeSend: function() {
+            $('#form-forgot').removeClass('is-invalid');
+            $('.alert, .text-danger, .invalid-feedback').remove();
+            $(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+        },
+        complete: function() {
+            $(this).prop('disabled', false).html('<i class="fas fa-sign-in-alt"></i> {{ button_reset }}');
+        },
+        success: function(json) {
+            if (json['error']) {
+                $('#input-email').addClass('is-invalid');
+                $('#input-email').after('<div class="invalid-feedback">' + json['error'] + '</div>');
+            }
+
+            if (json['error_record']) {
+                $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="fas fa-exclamation-circle"></i> ' + json['error_record'] + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+            }
+
+            if (json['success']) {
+                location = json['redirect'];
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+</script>
+{{ footer }}

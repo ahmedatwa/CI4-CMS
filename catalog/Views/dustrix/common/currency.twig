@@ -1,0 +1,27 @@
+{% if currencies|length > 1 %}
+	<div class="footer-row">
+		<div class="footer-row-inner language-switcher">
+			<div class="dropdown">
+				<div class="dropdown-toggle" data-toggle="dropdown">
+					{% for currency in currencies %}
+						{% if currency.symbol_left and currency.code == currency_code %} 
+						<span class="d-md-inline"><strong>{{ currency.symbol_left }} {{ currency.title }}</strong></span>
+						{% elseif currency.symbol_right and currency.code == currency_code %} 
+						<span class="d-md-inline"><strong>{{ currency.symbol_right }} {{ currency.title }}</strong></span>
+						 {% endif %}
+					{% endfor %}
+				</div>
+				<div class="dropdown-menu">
+					{% for currency in currencies %}
+					{% if currency.symbol_left %}
+						<a href="{{ currency.href }}" class="dropdown-item">{{ currency.symbol_left }} {{ currency.title }}</a>
+						{% else %}
+						<a href="{{ currency.href }}" class="dropdown-item">{{ currency.symbol_right }} {{ currency.title }}</a>
+						{% endif %}
+					{% endfor %}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

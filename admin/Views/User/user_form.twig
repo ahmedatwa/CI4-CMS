@@ -1,0 +1,134 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+							title="{{ button_save }}" class="btn btn-primary" form="form-user">
+							<i class="fa fa-save"></i>
+						</a>
+						<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}"
+							class="btn btn-light border">
+							<i class="fa fa-reply"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-pen"></i>
+					{{ text_form }}
+				</div>
+				<div class="card-body">
+					<form id="form-user" accept-charset="utf-8" encrypt="multipart/form-data">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+						<div class="form-group row">
+							<label for="input_firstname" class="col-sm-2 col-form-label">{{ entry_image }}</label>
+							<div class="col-md-10">
+								<a href="" id="thumb-image" data-ci-toggle="image" class="img-fluid">
+									<img src="{{ thumb }}" alt="" title="" data-ci-placeholder="{{ placeholder }}"
+										class="img-thumbnail" /></a>
+								<input type="hidden" name="image" value="{{ image }}" id="input-image" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_firstname"
+								class="col-sm-2 col-form-label required">{{ entry_firstname }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="firstname" class="form-control" id="input-firstname"
+									aria-describedby="input_firstname" value="{{ firstname }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_lastname"
+								class="col-sm-2 col-form-label required">{{ entry_lastname }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="lastname" class="form-control" id="input-lastname"
+									aria-describedby="input_lastname" value="{{ lastname }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_username"
+								class="col-sm-2 col-form-label required">{{ entry_username }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="username" class="form-control" id="input-username"
+									aria-describedby="input_username" value="{{ username }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="input_email" class="col-sm-2 col-form-label required">{{ entry_email }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="email" class="form-control" id="input-email"
+									aria-describedby="input_email" value="{{ email }}">
+							</div>
+						</div>
+						<fieldset>
+							<legend class="border-bottom mb-3">{{ entry_password }}</legend>
+							<div class="form-group row">
+								<label for="input_password"
+									class="col-sm-2 col-form-label required">{{ entry_password }}</label>
+								<div class="col-sm-10">
+									<input type="password" name="password" value="{{ password }}" class="form-control"
+										id="input-password">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input_confirm"
+									class="col-sm-2 col-form-label required">{{ entry_confirm }}</label>
+								<div class="col-sm-10">
+									<input type="password" name="confirm" value="{{ password }}" class="form-control"
+										id="input-confirm">
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend class="border-bottom mb-3">{{ text_other }}</legend>
+							<div class="form-group row">
+								<label for="input_status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
+								<div class="col-sm-10">
+									<select class="form-control" name="status" aria-label="select_status">
+										{% if status %}
+										<option value="1" selected>{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected>{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input_user_group"
+									class="col-sm-2 col-form-label">{{ entry_user_group }}</label>
+								<div class="col-sm-10">
+									<select class="form-control" name="user_group_id" aria-label="select_user_group">
+										{% for user_group in user_groups %}
+										{% if user_group.user_group_id == user_group_id %}
+										<option value="{{ user_group.user_group_id }}" selected>
+											{{ user_group.name }}
+										</option>
+										{% else %}
+										<option value="{{ user_group.user_group_id }}">{{ user_group.name }}
+										</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<!-- Card Body -->
+			</div>
+		</div>
+	</main>
+{{ footer }}

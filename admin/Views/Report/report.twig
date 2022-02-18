@@ -1,0 +1,63 @@
+{{ header }}
+{{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+							<li class="breadcrumb-item">
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{# </ page header #}
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-th-list"></i>
+					{{ text_type }}
+				</div>
+				<div class="card-body">
+						<div class="input-group">
+							<select name="report" class="form-control">
+								{% for report in reports %}
+									{% if report.code == code %}
+										<option value="{{ report.href }}" selected="selected">{{ report.text }}</option>
+									{% else %}
+										<option value="{{ report.href }}">{{ report.text }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						<span class="input-group-text"><i id="filter" class="fa fa-filter"></i></span>
+						</div>
+					<div class="mt-4" id="module"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+<script type="text/javascript">
+$('select[name=\'report\']').on('change', function() {
+	$.ajax({
+		url: $(this).val(),
+		dataType: 'html',
+		beforeSend: function() {
+			$('#filter').removeClass('fa fa-filter').addClass('fas fa-spinner fa-spin');
+		},
+		complete: function() {
+			$('#filter').removeClass('fas fa-spinner fa-spin').addClass('fa fa-filter');
+		},
+		success: function(html) {
+			$('#module').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+$('select[name=\'report\']').trigger('change');
+</script>
+{{ footer }}

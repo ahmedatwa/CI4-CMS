@@ -1,0 +1,52 @@
+*/config/development
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
+
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+#codeigniter 3
+application/logs/*
+!application/logs/index.html
+!application/logs/.htaccess
+/vendor/
+
+**/.DS_Store
+.env
+.DS_Store
+/admin/Config/App.php
+/catalog/Config/App.php
+
+
+# Image Cache Files
+/public_html/images/cache/*
+!/public_html/images/cache/index.html
+
+# Cache Files
+/storage/cache/*
+!/storage/cache/index.html
+
+# Log Files
+/storage/logs/*
+!/storage/logs/index.html
+
+# Session Files
+/storage/sessions/*
+!/storage/sessions/index.html
+
+# Upload Files
+/storage/uploads/*
+!/storage/uploads/index.html
+
+# Download Files
+/storage/download/*
+!/storage/download/index.html
+
+# Debugbar Files
+/storage/debugbar/*
+!/storage/debugbar/index.html

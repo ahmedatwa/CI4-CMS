@@ -1,0 +1,74 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a type="button" href="{{ action }}" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-customer-online">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+				<form aenctype="multipart/form-data" id="form-customer-online">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-width">{{ entry_width }}</label>
+						<div class="col-sm-10">
+							<select name="dashboard_customer_online[customer_online][width]" id="input-width" class="form-control">
+								{% for column in columns %}
+									{% if column == dashboard_customer_online.width %}
+										<option value="{{ column }}" selected="selected">{{ column }}</option>
+									{% else %}
+										<option value="{{ column }}">{{ column }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+						<div class="col-sm-10">
+							<select name="dashboard_customer_online[customer_online][status]" id="input-status" class="form-control">
+								{% if dashboard_customer_online.status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+						<div class="col-sm-10">
+							<input type="number" min="0" name="dashboard_customer_online[customer_online][sort_order]" value="{{ dashboard_customer_online.sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+						</div>
+					</div>
+				</form>
+			</div>
+			{# <!-- Card Body --> #}
+		</div>
+	</div>
+</main>
+{{ footer }}

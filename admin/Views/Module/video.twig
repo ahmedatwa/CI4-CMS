@@ -1,0 +1,95 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a role="button" href="{{ action }}" data-toggle-tooltip="tooltip" name="button-save" data-placement="top" title="{{ button_save }}" class="btn btn-primary" form="form-module">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}" class="btn btn-light border">
+						<i class="fa fa-reply"></i>
+					</a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_edit }}
+			</div>
+			<div class="card-body">
+				<form enctype="multipart/form-data" id="form-module">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+						<div class="col-sm-10">
+							<input class="form-control" name="name" value="{{ name }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-headline">{{ entry_headline }}</label>
+						<div class="col-sm-10">
+							<input class="form-control" name="module_description[headline]" value="{{ module_description.headline }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-title">{{ entry_mp4 }}</label>
+						<div class="col-sm-10">
+							<div class="input-group">
+								<input type="text" id="input-mp4" class="form-control border-right-0" name="module_description[mp4]" value="{{ module_description.mp4 }}">
+								<a role="button" href="" class="btn btn-secondary" data-ci-toggle="image">
+									<i class="fas fa-cloud"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-title">{{ entry_webm }}</label>
+						<div class="col-sm-10">
+							<div class="input-group">
+								<input type="text" id="input-webm" class="form-control border-right-0" name="module_description[webm]" value="{{ module_description.webm }}">
+								<a role="button" href="" class="btn btn-secondary" data-ci-toggle="image">
+									<i class="fas fa-cloud"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-title">{{ entry_background_image }}</label>
+						<div class="col-sm-10">
+							<a href="" id="thumb-image" data-ci-toggle="image" class="img-fluid">
+								<img src="{{ thumb }}" alt="" title="" data-ci-placeholder="{{ placeholder }}" class="img-thumbnail"/></a>
+							<input type="hidden" class="form-control border-right-0" name="module_description[image]" id="input-image" value="{{ module_description.image }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+						<div class="col-sm-10">
+							<select name="status" id="input-status" class="form-control">
+								{% if status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- Card Body -->
+		</div>
+	</div>
+</main>
+{{ footer }}

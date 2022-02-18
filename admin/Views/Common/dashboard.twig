@@ -1,0 +1,29 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{# </ page header #}
+		<div id="dashboard-tiles" class="container">
+			<div class="row">
+				{% for dashboard in dashboards %}
+					<div class="col-{{ dashboard.width }}">
+						{{ dashboard.output }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

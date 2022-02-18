@@ -1,0 +1,137 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="float-right">
+					<a href="{{ action }}" rol="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+						title="{{ button_save }}" class="btn btn-primary" form="form-banner">
+						<i class="fa fa-save"></i>
+					</a>
+					<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}"
+						class="btn btn-light border">
+						<i class="fa fa-reply"></i></a>
+				</div>
+				<h1>{{ heading_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ text_form }}
+			</div>
+			<div class="card-body">
+				<form id="form-banner" accept-charset="utf-8" encrypt="multipart/form-data">
+				<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+					<div class="form-group row">
+						<label for="input_name" class="col-sm-2 col-form-label required">{{ entry_name }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="name" class="form-control" id="input-name"
+								aria-describedby="input_name" value="{{ name }}">
+							{% if error_name %}
+							<div class="invalid-feedback">{{ error_name }}</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input_status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
+						<div class="col-sm-10">
+							<select class="form-control" name="status" aria-label="select_status">
+								{% if status %}
+								<option value="1" selected>{{ text_enabled }}</option>
+								<option value="0">{{ text_disabled }}</option>
+								{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								<option value="0" selected>{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						{% set social_row = 0 %}
+						<table class="table table-bordered table-striped" id="table-banner-images">
+							<thead>
+								<tr>
+									<th>{{ column_title }}</th>
+									<th>{{ column_caption }}</th>
+									<th>{{ column_link }}</th>
+									<th>{{ column_sort_order }}</th>
+									<th>{{ column_image }}</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for banner_image in banner_images %}
+								<tr id="image-row{{ social_row }}">
+									<td><input name="banner_image[{{ social_row }}][title]"
+											value="{{ banner_image.title }}" class="form-control"
+											id="input-title" />
+									</td>
+									<td><input name="banner_image[{{ social_row }}][caption]"
+											value="{{ banner_image.caption }}" class="form-control"
+											id="input-caption" />
+									</td>
+									<td><input name="banner_image[{{ social_row }}][link]"
+											value="{{ banner_image.link }}" class="form-control"
+											id="input-link{{ social_row }}" />
+									</td>
+									<td width="10%"><input name="banner_image[{{ social_row }}][sort_order]"
+											value="{{ banner_image.sort_order }}" class="form-control"
+											id="input-sort-order{{ social_row }}" />
+									</td>
+									<td><a href="" id="thumb-image{{ social_row }}" data-ci-toggle="image" class="img-fluid">
+									<img src="{{ banner_image.thumb }}" alt="" title="" data-ci-placeholder="{{ placeholder }}" class="img-thumbnail" /></a>
+									<input type="hidden" name="banner_image[{{ social_row }}][image]"
+											value="{{ banner_image.image }}" class="form-control"
+											id="input-image{{ social_row }}" />
+									</td>
+									<td width="4%"><button type="button"
+											onclick="$('#image-row{{ social_row }}, .tooltip').remove();"
+											data-toggle-tooltip="tooltip" title="{{ button_remove }}"
+											class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+									</td>
+								</tr>
+								{% set social_row = social_row + 1 %}
+								{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="6" class="text-right">
+										<button id="button-banner-add" type="button" class="btn btn-primary"
+											data-toggle-tooltip="tooltip" title="{{ button_add }}" data-placement="top"><i
+												class="fas fa-plus-circle"></i></button>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</form>
+			</div>
+			{# <!-- Card Body --> #}
+		</div>
+	</div>
+</main>
+<script type="text/javascript">
+	var social_row = {{ social_row }};
+	$('#button-banner-add').on('click', function () {
+		html = '<tr id="image-row' + social_row + '">';
+		html += '<td><input type="text" class="form-control" name="banner_image[' + social_row + '][title]" id="input-title"/></td>';
+		html += '<td><input type="text" class="form-control" name="banner_image[' + social_row + '][caption]" id="input-caption"/></td>';
+		html += '<td><input type="text" class="form-control" name="banner_image[' + social_row + '][link]"/></td>';
+		html += '<td width="10%"><input type="text" class="form-control" name="banner_image[' + social_row + '][sort_order]"/></td>';	
+		html += '<td><a href="" id="thumb-image'+ social_row +'" data-ci-toggle="image" class="img-fluid"><img src="{{ placeholder }}" alt="" title="" data-ci-placeholder="{{ placeholder }}" class="img-thumbnail" /></a><input type="hidden" name="banner_image[' + social_row + '][image]" value="" class="form-control" id="input-banner-name' + social_row + '" /></td>';
+		html += '<td><button type="button" class="btn btn-danger" id="button-delete" onclick="$(\'#image-row' + social_row + ', .tooltip\').remove();" data-toggle-tooltip="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash-alt"></i></button></td>';
+		html += '</tr>';
+		$('#table-banner-images').append(html);
+		social_row++;
+	});
+	$('#button-delete').remove();
+</script>
+{{ footer }}

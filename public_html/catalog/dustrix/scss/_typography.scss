@@ -1,0 +1,97 @@
+/* --------------------------------------------
+    Template Default Fonts & Fonts Styles
+ ---------------------------------------------- */
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+// Font Family Variable with Value
+// font-family: 'Poppins', sans-serif;
+
+$heading-font: 'Poppins', sans-serif;
+$body-font: 'Poppins', sans-serif;
+
+//font-family: "Font Awesome 5 Pro";
+$fa: "Font Awesome 5 Pro";
+
+body {
+    font-family: $body-font;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+    color: #666;
+    background-color: #fff;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading-font;
+    margin: 0px;
+    font-weight: 600;    
+    color: $second-color;
+}
+
+h1 {
+    font-size: 60px;
+    line-height: 70px;
+    letter-spacing: -3px;
+
+    @media (max-width: 991px) {
+        font-size: 2.25rem;
+        line-height: 3rem;
+    }
+
+    &.fs-lg {
+        font-size: 80px;
+        line-height: 115%;
+        letter-spacing: -4px;
+
+        @media (min-width: 767px) and (max-width: 991px) {
+            font-size: 42px;
+        }
+    }
+}
+
+h2 {
+    font-size: 36px;
+    line-height: 130%;
+}
+
+h3 {
+    font-size: 24px;
+    line-height: 36px;
+}
+
+h4 {
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+}
+
+h5 {
+    font-size: 1.125rem;
+    line-height: 1.88rem;
+}
+
+h6 {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 400;
+    outline: none !important;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 28px;
+    @include transition(.3s);
+    color: $second-color;
+}
+
+p {
+    margin: 0px;
+}
+

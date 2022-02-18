@@ -1,0 +1,45 @@
+{% if featured %}
+<!-- Features Jobs -->
+<div class="section gray padding-top-20 padding-bottom-75">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				<!-- Section Headline -->
+				<div class="section-headline margin-top-0 margin-bottom-35">
+					<h3>{{ heading_title }}</h3>
+					<a href="{{ projects_all }}" class="headline-link">{{ text_browse }}</a>
+				</div>
+				<!-- Jobs Container -->
+				<div class="listings-container compact-list-layout margin-top-35">
+					{% for featured in featureds %}
+					<!-- Job Listing -->
+					<a href="{{ featured.href }}" class="job-listing with-apply-button">
+						<!-- Job Listing Details -->
+						<div class="job-listing-details">
+							<!-- Details -->
+							<div class="job-listing-description">
+								<h3 class="job-listing-title">{{ featured.name }}</h3>
+								<!-- Job Listing Footer -->
+								<div class="job-listing-footer">
+									<ul>
+										<!-- <li><i class="icon-material-outline-location-on"></i> San Francissco</li>-->
+										<li><i class="icon-material-outline-business-center"></i> {{ featured.type }}
+										</li>
+										<li><i class="icon-material-outline-access-time"></i> {{ featured.date_added }}
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!-- Apply Button -->
+							<span class="list-apply-button ripple-effect">{{ text_apply }}</span>
+						</div>
+					</a>
+					{% endfor %}
+				</div>
+				<!-- Jobs Container / End -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Featured Jobs / End -->
+{% endif %}

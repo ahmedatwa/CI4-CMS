@@ -1,0 +1,313 @@
+.faq-section {
+
+    .content-block  {
+
+        .bg-img {
+            position: relative;
+        }
+        .man {
+            border-style: solid;
+            border-width: 4px;
+            border-color: rgb(255, 255, 255);
+            border-radius: 50%;
+            background-color: rgb(191, 191, 191);
+            box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            top: 50px;
+            left: 80px;
+            animation: bounce 3s infinite linear;
+
+            &-2 {
+                right: 140px;
+                left: auto;
+                top: 80px;
+                animation: bounce 5s infinite linear;
+            }
+
+            &-3 {
+                left: 25%;
+                top: auto;
+                bottom: 60px;
+                animation: bounce 4s infinite linear;
+            }
+        }
+    }
+
+}
+
+.accordion {
+    color: #666;
+
+    .card {
+        margin-top: 10px;
+        border: none;
+    }
+    
+    .card-header {
+        padding: 0px 28px;
+        border: none;
+        background-color: transparent;;
+
+        @media (max-width: 480px) {
+            padding: 0 15px;
+        }
+        
+        a {
+          display: block;
+          font-weight: 600;
+          line-height: 50px;
+          padding: 10px 0px;	  
+          position: relative;
+          color: $second-color;
+          font-size: 18px;
+
+            &:after {
+                content: "\f067";
+                font-family: "Font Awesome 5 Pro";
+                position: absolute;
+                right: 0;
+                top: 50%;
+                font-weight: 400;
+                transform: translateY(-50%);
+                color: $theme-color;
+             }
+
+              &[aria-expanded="true"]:after {
+                content: "\f068";
+
+                /* <i class="fal fa-angle-up"></i> */
+             }
+
+             @media (max-width: 767px) {				  	
+                  line-height: 40px;
+                  font-size: 15px;
+             }
+             
+             &:hover {
+                 color: $theme-color;
+             }
+        }
+    }
+
+    .card-body {
+        padding-left: 28px;
+        padding-top: 10px;
+        padding-bottom: 30px;
+    }
+}
+
+
+.search-cause-wrap {
+    margin-top: -60px;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        background-color: #f0f0f0;
+        content: "";
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+    }
+
+    form {
+        background-color: #202426;
+        padding: 40px 60px;
+        width: 100%;
+        display: flex;
+
+        @media (max-width: 991px) {
+            padding: 30px 40px;           
+        }
+
+        @media (max-width: 991px) {
+            display: block;
+            text-align: center;
+        }
+
+        span {
+            color: #fff;
+            line-height: 60px;
+            font-weight: 500;
+
+            @media (max-width: 991px) {
+                display: block;
+                text-align: center;
+                line-height: 40px;
+            }
+        }
+
+        input {
+            width: 69%;
+            display: inline-block;
+            height: 60px;
+            background: transparent;
+            padding-left: 10px;
+            padding-right: 10px;
+            color: #fff;
+            font-weight: 500;
+
+            @media (max-width: 1191px) {
+                width: 58%
+            }
+
+            @media (max-width: 991px) {
+                width: 100%;
+                border-bottom: 1px solid #f2f2f2;
+                margin-bottom: 30px;            
+            }
+            
+            ::placeholder {
+                color: #fff;
+            }
+        }
+
+        .theme-btn {
+            background-color: #d55342;
+            border-color: #d55342;
+            box-shadow: none;                        
+
+            i {
+                margin-right: 5px;
+            }
+
+            &:hover {
+                background-color: #efc94c;
+                border-color: #efc94c;
+            }
+        }
+        
+    }
+}
+
+.faq-bg {
+    background-color: #f0f0f0;
+}
+
+.faq-2 {
+    background-size: 80%;
+
+    .faq-left-img {
+       position: absolute;
+       bottom: 0;
+       content: "";
+       margin-bottom: -120px;
+       margin-left: -220px;
+
+       &::before {
+            position: absolute;
+            width: 531px;
+            height: 371px;
+            content: "";
+            background-color: $theme-color-3;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+        }
+    }
+
+    .accordion {
+        .card {
+            margin-top: 20px;
+        }
+
+        .card-header  {
+            a {
+                box-shadow: 0px 80px 180px 0px rgba(0, 0, 0, 0.06);
+                color: $second-color;
+
+                @media (max-width: 485px) {
+                    padding-right: 40px !important;
+                }
+
+                &::after {
+                    background-color: $theme-color-3;
+                    color: $second-color;
+                    padding: 5px 20px;
+                }
+            }
+        }
+    }
+}
+
+.faq-section {
+    padding-top: 90px;
+
+    @media (max-width: 991px) {
+        padding-top: 70px;
+    }
+
+    @media (max-width: 767px) {
+        padding-top: 50px;
+    }
+
+    .accordion {
+
+        .card {
+            margin-top: 30px;
+            border: none;
+            box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.06);
+            background-color: #fff;
+        }
+		.card-header {
+			padding: 0px 28px;
+            border: none;
+            background-color: #fff;
+
+			@media (max-width: 480px) {
+				padding: 0 15px;
+			}
+			
+			a {
+              display: block;
+              line-height: 50px;
+              padding: 10px 0px;	  
+			  position: relative;
+
+				&:after {
+				    content: "\f067";
+				    font-family: $fa;
+				    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    @media (max-width: 767px) {				  	
+                        right: -28px;
+                    }
+                    
+                    @media (max-width: 500px) {				  	
+                        right: -10px;
+                    }
+				 }
+
+				  &[aria-expanded="true"]:after {
+				    content: "\f068";
+				 }
+
+				 @media (max-width: 767px) {				  	
+                      line-height: 40px;
+                      font-size: 16px;
+                      padding: 6px 0px;
+                 }
+                 
+                 &:hover {
+                     color: $theme-color;
+                 }
+			}
+		}
+
+		.card-body {
+            padding-left: 28px;
+            padding-top: 10px;
+            padding-bottom: 30px;
+		}
+	}
+}

@@ -1,0 +1,115 @@
+{{ header }}
+<div class="container my-2 overflow-hidden">
+	<div class="d-flex align-items-center justify-content-center my-5">
+		<div class="card shadow mb-5 bg-body rounded">
+			<div class="card-header mb-1">
+				<i class="fas fa-lock"></i>
+				{{ text_title }}
+			</div>
+			{% if warning %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<i class="fas fa-exclamation-circle"></i>
+					{{ warning }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endif %}
+			<div class="card-body p-auto mx-4">
+				<div class="row no-gutters h-100">
+					<div class="col d-none d-sm-block">
+						<div class="login100-pic" data-tilt>
+							<img src="images/login.png" alt="IMG" width="250px">
+						</div>
+					</div>
+					<div class="col">
+						<form id="form-login" accept-charset="utf-8" encrypt="multipart/form-data">
+							<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+							<input type="hidden" name="redirect" value="{{ redirect }}" />
+							<div class="form-group row">
+								<label for="input-email" class="font-weight-bold">{{ entry_email }}</label>
+								<div class="input-group mb-3">
+									<span class="input-group-text" id="basic-email">
+										<i class="fas fa-envelope"></i>
+									</span>
+									<input type="email" class="form-control" name="email" id="input-email" placeholder="{{ entry_email }}" aria-label="email">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input-password" class="font-weight-bold">{{ entry_password }}</label>
+								<div class="input-group mb-3">
+									<span class="input-group-text" id="basic-password">
+										<i class="fas fa-lock"></i>
+									</span>
+									<input type="password" class="form-control" name="password" id="input-password" placeholder="{{ entry_password }}" aria-label="password">
+								</div>
+							</div>
+							<div class="m-auto">
+								<button type="button" class="btn btn-primary btn-block" id="button-login">
+									<i class="fas fa-sign-in-alt mr-1"></i>
+									{{ button_login }}</button>
+							</div>
+							<p class="text-center mt-3">
+								<i class="fas fa-key"></i>
+								<a href="{{ forgotten }}"/>{{ text_forget_password }}</p>
+						    </a>
+					    </p>
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+ </div>
+</div>
+<script type="text/javascript" src="vendor/tilt/tilt.jquery.js"></script>
+<script type="text/javascript" src="javascript/jquery.countdown.min.js"></script>
+<script type="text/javascript">
+$('#button-login').on('click', function () {
+	$.ajax({
+		url: '{{ authLogin }}',
+		headers: {
+		"X-Requested-With": "XMLHttpRequest",
+		"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+		},
+		method: 'POST',
+		dataType: 'json',
+		data: $('#form-login').serialize(),
+		beforeSend: function () {
+			$('#form-login').removeClass('is-invalid');
+			$('.alert, .text-danger, .invalid-feedback').remove();
+			$(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+		},
+		complete: function () {
+			$(this).prop('disabled', false).html('<i class="fas fa-sign-in-alt"></i>   {{ button_login }}');
+		},
+		success: function (json) {
+		if (json['validator']) {
+		    for (i in json['validator']) {
+				var element = $('#input-' + i);
+				element.addClass('is-invalid');
+				element.after('<div class="invalid-feedback d-block">' + json['validator'][i] + '</div>');
+		    }
+		    $('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+		}
+
+		if (json['redirect']) {
+		    location = json['redirect'];
+		}
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			$('.card-header').after('<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="fas fa-exclamation-circle"></i> ' + xhr.responseJSON.code + ': ' + xhr.responseJSON.message + ' Generating new token in <span id="token_countdown_timer"></span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+			var fiveSeconds = new Date().getTime() + 5000;
+			$('#token_countdown_timer').countdown(fiveSeconds, {elapse: true})
+			.on('update.countdown', function(event) {
+			var $this = $(this);
+			if (event.elapsed) {
+				location.reload(true);
+			} else {
+				$this.html(event.strftime('<span>%S</span> Seconds...'));
+			}
+			});
+		}
+	});
+});
+</script>
+{{ footer }} 

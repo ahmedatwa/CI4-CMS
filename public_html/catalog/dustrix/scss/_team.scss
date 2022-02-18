@@ -1,0 +1,134 @@
+.single-team-member {
+    transition: all .35s ease-in-out;
+    position: relative;
+    margin-top: 30px;
+    height: 410px;
+    width: 100%;
+    background: $section-bg;
+    overflow: hidden;
+
+    @media (max-width: 767px) {
+        height: 320px;
+    }
+
+    .member-img {
+        position: relative;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .social-icons {
+        position: absolute;
+        right: 40px;
+        top: 40px;
+        content: "";
+        overflow: hidden;
+        display: inline-block;
+        transition: all .4s ease-in-out;
+
+        &:hover {
+            .plus-icon {
+                background-color: $theme-color-2;
+                
+                i {
+                    transform: rotate(45deg);
+                    color: #fff;
+                }
+            }
+
+            .top {
+                transform: translateX(0);
+            }
+            
+            .right {
+                transform: translateY(0);
+            }
+        }
+
+        .plus-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 2;
+            cursor: pointer;
+
+            i {
+                transition: all .3s ease-in-out;
+            }
+        }
+
+        .plus-icon, a {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 16px;
+            display: inline-block;
+            background: #fff;
+            color: $second-color;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                background: $theme-color-2;
+                color: #fff;
+            }
+        }
+
+        .top {
+            transform: translateX(100%);
+            margin-right: 55px;
+            transition: all .4s ease-in-out;
+            height: 50px;
+           a {
+               margin-right: 5px;
+           }
+        }
+
+        .right {
+            transform: translateY(-100%);
+            transition: all .4s ease-in-out;
+            width: 50px;
+            float: right;
+            
+           a {
+               margin-top: 10px;
+               display: block;
+           }
+        }
+    }
+
+    .member-details {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        content: "";       
+
+        h3 {
+            color: $second-color;
+            background: #fff;
+            line-height: 1;
+            padding: 20px 25px;
+            padding-right: 50px;
+            text-transform: uppercase;
+
+            @media (max-width: 767px) {
+                font-size: 20px;
+                padding: 15px 25px;
+            }
+        }
+
+        span {
+            padding: 8px 25px;
+            color: #fff;
+            font-weight: 500;
+            line-height: 1;
+            background: $theme-color-2;
+            display: inline-block;
+
+            @media (max-width: 767px) {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    }
+}

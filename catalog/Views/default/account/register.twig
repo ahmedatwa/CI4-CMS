@@ -1,0 +1,103 @@
+{{ header}}{{ menu }}
+<div class="jumbotron p-5 rounded shadow-sm jumbotron-image" data-background-image="images/catalog/single-task.jpg">
+	<div class="col-md-6 px-0 header-details ">
+		<h3 class="display-4 font-italic">{{ heading_title }}</h3>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ol>
+		</nav>
+	</div>
+</div>
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-6 mx-auto">
+			<div class="card shadow mb-5 bg-white rounded">
+				<div class="card-header">
+					{{ text_register }}
+				</div>
+				<section id="register">
+					<div class="card-body mx-4">
+						<form enctype="multipart/form-data" id="form-register" accept-charset="utf-8">
+							<div class="form-group">
+								<label for="input-firstname">{{ entry_firstname }}</label>
+								<input type="text" name="firstname" class="form-control" id="input-firstname">
+							</div>
+							<div class="form-group">
+								<label for="input-lastname">{{ entry_lastname }}</label>
+								<input type="text" name="lastname" class="form-control" id="input-lastname">
+							</div>
+							<div class="form-group">
+								<label for="input-email">{{ entry_email}}</label>
+								<input type="email" name="email" class="form-control" id="input-email">
+							</div>
+							<div class="form-group">
+								<label for="input-password">{{ entry_password }}</label>
+								<input type="password" name="password" class="form-control" id="input-password">
+							</div>
+							<div class="form-group">
+								<label for="input-password">{{ entry_confirm }}</label>
+								<input type="password" name="confirm" class="form-control" id="input-confirm">
+							</div>
+							<div class="row justify-content-center my-3 px-3">
+								<button type="button" id="button-register" class="btn btn-primary btn-block" data-loading-text="Loading...">
+									<i class="fas fa-sign-in-alt"></i>
+									{{ button_register }}</button>
+							</div>
+							<div class="dropdown-divider"></div>
+							<div class="bottom text-center mb-5">
+								<p class="sm-text mx-auto">{{ text_login }}</p>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+</main>
+<script type="text/javascript">
+$("#button-register").on("click", function() {
+	let $node = this;
+	$.ajax({
+		url: "{{ register }}",
+		method: "POST",
+		dataType: "json",
+		data: $('#form-register').serialize(),
+		headers: {
+			"X-Requested-With": "XMLHttpRequest",
+			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+		},
+		beforeSend: function() {
+			$($node).button("loading");
+			$('#login input').removeClass('is-invalid');
+			$('.alert, .invalid-feedback').remove();
+		},
+		complete: function() {
+			$($node).button("reset");
+		},
+		success: function (json) {
+			if (json['redirect']) {
+				location  = json['redirect'];
+			}
+			if (json["errors"]) {
+				for (i in json["errors"]) {
+					$("#input-" + i).addClass('is-invalid');
+					$("#input-" + i).after('<div class="invalid-feedback">' + json["errors"][i] + '</div>');
+				}
+			}
+			if (json["error_warning"]) {
+				$("#login").before('<div class="alert alert-danger alert-dismissible fade show m-2" role="alert"><i class="fas fa-exclamation-circle"></i> ' + json['error_warning'] + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+</script>
+{{ footer }}

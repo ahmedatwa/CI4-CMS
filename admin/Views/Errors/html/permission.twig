@@ -1,0 +1,30 @@
+{{ header }}
+{{ column_left }}
+<main id="content">
+	<div class="container-fluid px-4">
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>
+					<i class="fas fa-exclamation-triangle"></i>
+					{{ text_title }}</h1>
+				<ul class="breadcrumb">
+					{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header">
+				<i class="fas fa-pen"></i>
+				{{ heading_title }}
+			</div>
+			<div class="card-body m-4">
+				<p class="text-center">{{ text_permission }}</p>
+			</div>
+		</div>
+	</div>
+</main>
+{{ footer }}

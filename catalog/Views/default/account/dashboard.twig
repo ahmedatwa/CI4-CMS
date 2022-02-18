@@ -1,0 +1,193 @@
+{{ header }} {{ menu }}
+<!-- Dashboard Content -->
+<div class="dashboard-content-container container p-2">
+		<div class="m-4">
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline mb-4">
+			<h3>{{ heading_title }}</h3>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+			<div class="dashboard-headline mb-4">
+				<h3>{{ text_greeting }}</h3>
+			</div>
+			<div class="mb-4 card-deck">
+				<div class="card mx-2">
+					<div class="card-body row">
+						<div class="col-9">
+							<h2>Profile Views</h2>
+						</div>
+						<div class="col-3">
+							<span class="text-right">
+								<i class="far fa-eye fa-2x text-primary"></i>
+							</span>
+						</div>
+						<div class="col-12">
+							<h1 class="text-center">{{ total_views }}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="card mx-2">
+					<div class="card-body row">
+						<div class="col-9">
+							<h2>Total Projects</h2>
+						</div>
+						<div class="col-3">
+							<span class="text-right">
+								<i class="fas fa-briefcase fa-2x text-warning"></i>
+							</span>
+						</div>
+						<div class="col-12">
+							<h1 class="text-center">{{ total_projects }}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="card mx-2">
+					<div class="card-body row">
+						<div class="col-9">
+							<h2>Balance</h2>
+						</div>
+						<div class="col-3">
+							<span class="text-right">
+								<i class="fas fa-wallet fa-2x text-success"></i>
+							</span>
+						</div>
+						<div class="col-12">
+							<h1 class="text-center">{{ total_balance }}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content mt-4">
+				<!-- Chart -->
+				<div class="chart">
+					<h3 class="mb-3">
+						<i class="fas fa-chart-line text-danger"></i>
+						Income Monthly</h3>
+					<canvas id="chart" width="100" height="45"></canvas>
+				</div>
+			</div>
+			<div class="dropdown-divider my-4"></div>
+			<div class="row">
+				{% if column_left or column_right %}
+					{% set class =  "col-sm-12 col-md-8" %}
+				{% else %}
+					{% set class =  "col-sm-12" %}
+				{% endif %}
+				{{ column_left }}
+				<div class="{{ class }}">
+					<ul class="nav nav-tabs" id="dashboardTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity" aria-selected="true">
+								<i class="icon-material-baseline-notifications-none"></i>
+								{{ text_news_feed }}</a>
+						</li>
+					</ul>
+					<div class="tab-content" id="dashboardTabContent">
+						<div class="tab-pane fade show active border-right border-bottom border-left" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+							<div id="activity-list"></div>
+						</div>
+						<!-- ../End activity content tab-->
+					</div>
+				</div>
+				{{ column_right }}
+			</div>
+		</div>
+	</div>
+<!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
+<script src="catalog/default/javascript/chart.min.js"></script>
+<script>
+	// Chart.defaults.global.defaultFontFamily = "Nunito";
+	// Chart.defaults.global.defaultFontColor = '#888';
+	// Chart.defaults.global.defaultFontSize = '14';
+
+	var ctx = document.getElementById('chart').getContext('2d');
+
+	var chart = new Chart(ctx, {
+		type: 'line',
+
+		// The data for our dataset
+		data: {
+			labels: [],
+			// Information about the dataset
+			datasets: [{
+				label: "income",
+				backgroundColor: 'rgba(42,65,232,0.08)',
+				borderColor: '#2a41e8',
+				borderWidth: "3",
+				data: [],
+				pointRadius: 5,
+				pointHoverRadius: 5,
+				pointHitRadius: 10,
+				pointBackgroundColor: "#fff",
+				pointHoverBackgroundColor: "#fff",
+				pointBorderWidth: "2",
+			}]
+		},
+
+		// Configuration options
+		options: {
+
+			layout: {
+				padding: 10,
+			},
+
+			legend: {
+				display: false
+			},
+			title: {
+				display: false
+			},
+
+			scales: {
+				yAxes: [{
+					scaleLabel: {
+						display: false
+					},
+					gridLines: {
+						borderDash: [6, 10],
+						color: "#d8d8d8",
+						lineWidth: 1,
+					},
+				}],
+				xAxes: [{
+					scaleLabel: {
+						display: false
+					},
+					gridLines: {
+						display: false
+					},
+				}],
+			},
+
+			tooltips: {
+				backgroundColor: '#333',
+				titleFontSize: 13,
+				titleFontColor: '#fff',
+				bodyFontColor: '#fff',
+				bodyFontSize: 13,
+				displayColors: false,
+				xPadding: 10,
+				yPadding: 10,
+				intersect: false
+			}
+		},
+	});
+
+	ajax_chart(chart, 'account/dashboard/chart');
+	// function to update our chart
+	function ajax_chart(chart, url, data) {
+		var data = data || {};
+		$.getJSON('account/dashboard/chart', data).done(function (response) {
+			chart.data.labels = response.labels;
+			chart.data.datasets[0].data = response.data.total;
+			chart.update();
+		});
+	}
+</script>
+{{ footer }}

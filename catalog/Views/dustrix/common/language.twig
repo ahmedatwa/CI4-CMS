@@ -1,0 +1,22 @@
+{% if languages|length > 1 %}
+	<div class="footer-row">
+		<div class="footer-row-inner language-switcher">
+			<div class="dropdown">
+				<div class="dropdown-toggle" data-toggle="dropdown">
+					{% for language in languages %}
+						{% if language.code == language_code %}
+							<span class="d-md-inline"><img src="images/flags/{{ language.code }}.png" alt="{{ language.name }}" title="{{ language.name }}">
+								{{ language.name }}</span>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="dropdown-menu">
+					{% for language in languages %}
+						<a href="{{ language.href }}" class="dropdown-item"><img src="images/flags/{{ language.code }}.png" alt="{{ language.name }}" title="{{ language.name }}"/>
+							{{ language.name }}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

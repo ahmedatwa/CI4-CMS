@@ -1,0 +1,48 @@
+<fieldset>
+	<div class="float-right">
+		<a href="{{ delete }}" role="button" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_delete }}" class="btn btn-danger" name="button-delete" form="form-user-activity"><i class="far fa-trash-alt"></i> {{ button_delete }}</a>
+	</div>
+	<form id="form-user-activity" accept-charset="utf-8" encrypt="multipart/form-data">
+		<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+		<table id="table-list" class="table table-bordered table-striped" data-order='[[ 2, "desc" ]]'>
+			<thead>
+				<tr>
+					<th width="1%" class="no-sort">
+						<input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" id="selectAll"/>
+					</th>
+
+					<td>{{ column_comment }}</td>
+					<td>{{ column_ip }}</td>
+					<td>{{ column_date_added }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for activity in activities %}
+					<tr>
+						<th scope="row">
+							{% if activity.activity_id in selected %}
+								<input type="checkbox" name="selected[]" value="{{ activity.activity_id }}" checked="checked"/>
+							{% else %}
+								<input type="checkbox" name="selected[]" value="{{ activity.activity_id }}"/>
+							{% endif %}
+						</th>
+						<td>{{ activity.comment }}</td>
+						<td class="text-left">{{ activity.ip }}</td>
+						<td class="text-left">{{ activity.date_added }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+</fieldset>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#table-list').DataTable({
+		"conditionalPaging": true,
+		"sDom": 'lrtip',
+		"responsive": true,
+		"pageLength": 20,
+		"lengthMenu": [20, 35, 50, 100]
+	});
+});
+</script>

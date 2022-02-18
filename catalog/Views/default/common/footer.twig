@@ -1,0 +1,133 @@
+<footer>
+	<div id="footer">
+		<div class="footer-top-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="footer-rows-container">
+							<div class="footer-rows-left">
+								<div class="footer-row">
+									<div class="footer-row-inner footer-logo">
+										<img src="{{ logo }}" alt="{{ config_name }}">
+									</div>
+								</div>
+							</div>
+							<div class="footer-rows-right">
+								<div class="footer-row">
+									<div class="footer-row-inner">
+										<ul class="footer-social-links">
+											{% for social in social_networks %}
+												<li>
+													<a href="{{ social.href }}" target="_blank" data-toggle="tooltip" title="{{ social.name }}" data-placement="bottom">
+														<i class="fab fa-{{ social.name|lower }}"></i>
+													</a>
+												</li>
+											{% endfor %}
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								{% if language|length > 0 %}
+									{{ language }}
+								{% endif %}
+								{% if currency|length > 0 %}
+									{{ currency }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-middle-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<div class="footer-links">
+							<ul class="list-unstyled ml-2">
+								<li>{{ config_owner }}</li>
+								<li>
+									<i class="fas fa-phone-square"></i> <a href="tel:{{ config_telephone }}">{{ config_telephone }}</a></li>
+								<li>
+									<i class="far fa-envelope"></i> <a href="mailto:{{ config_email }}">{{ config_email }}</a></li>
+								<li>
+									<i class="fas fa-map-marker-alt text-danger"></i> <a href="https://goo.gl/maps/V844ZzopcNaThWtf9">{{ config_address }}</a></li>
+							</ul>
+							<div class="card bg-transparent border-0">
+								<div class="card-body p-1">
+									{{ text_content }}</div>
+							</div>
+						</div>
+					</div>
+					{% if informations %}
+						<div class="col-sm-12 col-md-3">
+							<div class="footer-links">
+								<h3>{{ text_terms }} {{ config_name }}</h3>
+								<ul class="ml-2">
+									{% for information in informations %}
+										<li>
+											<a href="{{ information.href }}">
+												<span>{{ information.title }}</span>
+											</a>
+										</li>
+									{% endfor %}
+									{% if contact %}
+										<li>
+											<a href="{{ contact }}">
+												<span>{{ text_contact }}</span>
+											</a>
+										</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					{% endif %}
+					{% if categories %}
+						<div class="col-sm-12 col-md-2">
+							<div class="footer-links">
+								<h3>{{ text_categories }}</h3>
+								<ul class="ml-2">
+									{% for category in categories %}
+										<li>
+											<a href="{{ category.href }}">
+												<span>{{ category.name }}</span>
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-sm-12 col-md-3">
+						<div class="footer-links">
+							<h3>{{ text_opening }}</h3>
+							<ul class="ml-2">
+							{% for item in open_hours %}
+								<li>{{ item }}</li>
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						{{ text_footer }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<div id="preloader" class="preloader">
+    <div id="preloader_image" class="preloader_image"></div>
+</div>
+<script type="text/javascript" src="catalog/default/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+{% for script in scripts %}
+	<script type="text/javascript" src="{{ script }}"></script>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,123 @@
+{{ header }}
+{{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<button class="btn btn-secondary" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="filter" aria-expanded="false" data-target="#filter" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_filter }}">
+							<i class="fas fa-filter"></i>
+						</button>
+						<a href="{{ add }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_add }}" class="btn btn-primary">
+							<i class="fas fa-plus"></i>
+						</a>
+						<a href="{{ delete }}" role="button" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_delete }}" class="btn btn-danger disabled" name="button-delete" form="form-translation">
+							<i class="far fa-trash-alt"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+							<li class="breadcrumb-item">
+								<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{# </ page header #}
+			<div
+				class="collapse" id="filter">
+				{# Filter Start #}
+				<div class="card mb-3" id="filter">
+					<div class="card-header">
+						<i class="fas fa-filter"></i>
+						{{ text_filter }}
+					</div>
+					<div class="card-body row">
+						<div class="col-6">
+							<div class="form-group">
+								<label for="filter-name" class="col-form-label">{{ filter_name }}</label>
+								<input type="text" class="form-control" placeholder="{{ filter_name }}" name="filter_name">
+							</div>
+							<div class="form-group">
+								<label for="filter-email" class="col-form-label">{{ filter_email }}</label>
+								<input type="text" class="form-control" placeholder="{{ filter_email }}" name="filter_email">
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label for="filter-status" class="col-form-label">{{ filter_status }}</label>
+								<select class="form-control" name="fillter_status">
+									<option selected value="">{{ text_select }}</option>
+									<option value="{{ text_enabled }}">{{ text_enabled }}</option>
+									<option value="{{ text_disabled }}">{{ text_disabled }}</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="filter-date" class="col-form-label">{{ filter_date_added }}</label>
+								<div class="input-group flex-nowrap">
+									<input type="text" class="form-control" placeholder="DD/MM/YYYY" name="fillter_date_added" id="datepicker">
+									<span class="input-group-text">
+										<i name="datepicker" class="fas fa-calendar-alt"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# <!-- Card Body --> #}
+				</div>
+				{# Filter End #}
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-th-list"></i>
+					{{ text_list }}
+				</div>
+				<div class="card-body">
+					<form id="form-translation" accept-charset="utf-8" encrypt="multipart/form-data">
+						<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+						<div class="table-responsive">
+							<table id="table-list" class="table table-bordered table-striped" data-order='[[ 4, "desc" ]]'>
+								<thead>
+									<tr>
+										<th width="1%" class="no-sort">
+											<input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" id="selectAll"/>
+										</th>
+										<th id="filter_name">{{ column_language }}</th>
+										<th id="filter_email">{{ column_route }}</th>
+										<th id="fillter_status">{{ column_key }}</th>
+										<th id="fillter_date_added">{{ column_value }}</th>
+										<th class="text-center no-sort">{{ column_action }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for translation in translations %}
+										<tr>
+											<th scope="row">
+												{% if translation.translation_id in selected %}
+													<input type="checkbox" name="selected[]" value="{{ translation.translation_id }}" checked="checked"/>
+												{% else %}
+													<input type="checkbox" name="selected[]" value="{{ translation.translation_id }}"/>
+												{% endif %}
+											</th>
+											<td>{{ translation.language }}</td>
+											<td>{{ translation.route }}</td>
+											<td>{{ translation.key }}</td>
+											<td>{{ translation.value }}</td>
+											<td class="text-center">
+												<a href="{{ translation.edit }}" role="button" class="btn btn-primary btn-sm" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}">
+													<i class="far fa-edit"></i>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+{{ footer }}

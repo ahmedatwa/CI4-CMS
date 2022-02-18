@@ -1,0 +1,145 @@
+{{ header }} {{ column_left }}
+	<main id="content">
+		<div class="container-fluid px-4">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="float-right">
+						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-save" data-placement="top"
+							title="{{ button_save }}" class="btn btn-primary" form="form-information">
+							<i class="fa fa-save"></i>
+						</a>
+						<a href="{{ back }}" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_cancel }}"
+							class="btn btn-light border">
+							<i class="fa fa-reply"></i>
+						</a>
+					</div>
+					<h1>{{ heading_title }}</h1>
+					<ul class="breadcrumb">
+						{% for breadcrumb in breadcrumbs %}
+						<li class="breadcrumb-item">
+							<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-pen"></i>
+					{{ text_form }}
+				</div>
+				<div class="card-body">
+					<form id="form-information" accept-charset="utf-8" encrypt="multipart/form-data">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}" />
+					<ul class="nav nav-tabs mb-3" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active mr-2" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="false">{{ tab_general }}</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link mr-2" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false">{{ tab_data }}</a>
+						</li>
+					</ul> 
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+							<ul class="nav nav-tabs mb-3" id="language" role="tablist">
+							{% for language in languages %}
+									<li class="nav-item" role="presentation">
+										<a class="nav-link mr-2" id="{{ language.code }}-tab" data-toggle="tab" href="#{{ language.code }}" role="tab" aria-controls="{{ language.code }}" aria-selected="false">{{ language.name }}</a>
+									</li>
+								{% endfor %}
+							</ul> 
+							<div class="tab-content" id="myTabContent">{% for language in languages %}
+									<div class="tab-pane fade" id="{{ language.code }}" role="tabpanel" aria-labelledby="{{ language.code }}-tab">
+										<div class="form-group row">
+											<label for="input-name" class="col-md-2 col-form-label required">{{ entry_name }}</label>
+											<div class="col-md-10">
+												<input type="text" name="category_description[{{ language.language_id }}][name]" value="{{ category_description[language.language_id] ? category_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name{{ language.language_id }}" class="form-control" />
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="input-description" class="col-md-2 col-form-label">{{ entry_description }}</label>
+											<div class="col-md-10">
+												<textarea name="category_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-ci-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ category_description[language.language_id] ? category_description[language.language_id].description }}</textarea>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="input-meta-name" class="col-md-2 col-form-label required">{{ entry_meta_title }}</label>
+											<div class="col-md-10">
+												<input type="text" name="category_description[{{ language.language_id }}][meta_title]" value="{{ category_description[language.language_id] ? category_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control" />
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="input-meta-description" class="col-md-2 col-form-label">{{ entry_meta_description }}</label>
+											<div class="col-md-10">
+												<textarea name="category_description[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description{{ language.language_id }}" class="form-control">{{ category_description[language.language_id] ? category_description[language.language_id].meta_description }}</textarea>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="input-meta-keyword" class="col-md-2 col-form-label">{{ entry_meta_keyword }}</label>
+											<div class="col-md-10">
+												<textarea name="category_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control">{{ category_description[language.language_id] ? category_description[language.language_id].meta_keyword }}</textarea>
+											</div>
+										</div>
+									</div>
+							{% endfor %}
+							</div>
+						</div>
+						<div class="tab-pane" id="data" role="tabpanel" aria-labelledby="data-tab">
+							<div class="form-group row">
+								<label for="input-sort-order" class="col-md-2 col-form-label">{{ entry_icon }} <span data-toggle-tooltip="tooltip" data-placement="top" title="{{ help_icon }}"><i class="fas fa-info-circle"></i></span></label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="fas fa-sign-in-alt" id="input-icon" name="icon" value="{{ icon }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input-sort-order" class="col-md-2 col-form-label">{{ entry_sort_order }}</label>
+								<div class="col-md-10">
+									<input class="form-control" min="0" type="number" id="input-sort-order" name="sort_order" value="{{ sort_order }}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="input-parent-id" class="col-md-2 col-form-label">{{ entry_parent }} 
+								<span data-toggle-tooltip="tooltip" data-placement="top" title="{{ help_filter }}"><i class="fas fa-info-circle"></i>
+								</span></label>
+								<div class="col-md-10">
+									<select class="form-control" name="parent_id" data-width="100%">
+										<option></option>
+										{% for parent in parents %}
+										{% if parent.category_id ==  parent_id %}
+										<option value='{{ parent.category_id }}' selected>{{ parent.name }} </option>
+										{% else %}
+											<option value='{{ parent.category_id }}'>{{ parent.name }} </option>
+										{% endif %}											
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-md-2 col-form-label">{{ entry_status }}</label>
+								<div class="col-md-10">
+									<select class="form-control" name="status">
+										{% if status %}
+											<option value="1" selected>{{ text_enabled }}</option>
+											<option value="0">{{ text_disabled }}</option>
+										{% else %}
+											<option value="1">{{ text_enabled }}</option>
+											<option value="0" selected>{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	    </div>
+	</div>
+</main>
+<script src="vendor/summernote/summernote-bs4.js"></script> 
+<script src="javascript/summernote.js"></script> 
+<link href="vendor/summernote/summernote-bs4.css" rel="stylesheet">	
+
+<script type="text/javascript">
+	$('#language li:first a').tab('show');
+</script>
+{{ footer }}

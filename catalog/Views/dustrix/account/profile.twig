@@ -1,0 +1,197 @@
+{{ header }}
+{{ menu }}
+<!-- Dashboard Content -->
+<div class="dashboard-content-container container p-2">
+	<div class="m-4">
+		<!-- Dashboard Headline -->
+		<div class="dashboard-headline mb-4">
+			<h3>{{ heading_title }}</h3>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">{{ tab_general }}</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="propasswordfile" aria-selected="false">{{ tab_password }}</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+				<form id="form-profile" accept-charset="utf-8" encrypt="multipart/form-data" class="p-4">
+					<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+					<div class="form-group row">
+						<label for="input-image" class="col-sm-2 col-form-label">{{ entry_image }}</label>
+						<div class="col-sm-10">
+
+             
+
+
+
+              <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                  <img class="profile-user-img img-responsive img-circle" id="imagePreview" src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User profile picture">
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			 
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-firstname" class="col-sm-2 col-form-label">{{ entry_firstname }}</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="input-firstname" value="{{ firstname }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-lastname" class="col-sm-2 col-form-label">{{ entry_lastname }}</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="input-lastname" value="{{ lastname }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="input-username" class="col-sm-2 col-form-label">{{ entry_username }}</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="input-username" value="{{ username }}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="inlineCheckbox1">{{ entry_twostep }}</label>
+						<div class="col-sm-10">
+							<div class="form-check form-check-inline">
+								{% if twostep %}
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="two_step" value="1" checked>
+										<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="two_step" value="0">
+										<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+									</div>
+								{% else %}
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="two_step" value="1">
+										<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="two_step" value="0" checked>
+										<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>					
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="input-newsletter">{{ entry_newsletter }}</label>
+						<div class="col-sm-10">
+							<div class="form-check form-check-inline">
+								{% if newsletter %}
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="newsletter" value="1" checked>
+										<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="newsletter" value="0">
+										<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+									</div>
+								{% else %}
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="newsletter" value="1">
+										<label class="form-check-label" for="inlineRadio1">{{ text_yes }}</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="newsletter" value="0" checked>
+										<label class="form-check-label" for="inlineRadio1">{{ text_no }}</label>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+		{# tab_general #}
+		<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+			<form id="form-password" accept-charset="utf-8" encrypt="multipart/form-data" class="p-4">
+				<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+				<div class="form-group row">
+					<label for="input-old-passowrd" class="col-sm-2 col-form-label">{{ entry_old_password }}</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="input-old-passowrd" value="{{ old_passowrd }}">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="input-password" class="col-sm-2 col-form-label">{{ entry_password }}</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="input-password">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="input-confirm" class="col-sm-2 col-form-label">{{ entry_confirm }}</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="input-confirm">
+					</div>
+				</div>
+			</form>
+			
+		</div>
+		{# tab_passowrd #}
+		<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+		<button type="button" class="btn btn-primary text-right">Primary</button>
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function () {
+  $("#imageUpload").change(function (data) {
+    var imageFile = data.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+
+    reader.onload = function (evt) {
+      $("#imagePreview").attr("src", evt.target.result);
+      $("#imagePreview").hide();
+      $("#imagePreview").fadeIn(650);
+    };
+  });
+});
+
+
+</script>
+{{ footer }}

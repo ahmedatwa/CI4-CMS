@@ -1,0 +1,56 @@
+<nav id="sidebar">
+	<div class="sidebar-header" id="navigation">
+		<span>
+			<i class="fas fa-bars"></i>
+			{{ text_navigation }}</span>
+	</div>
+	<ul id="menu">
+		{% for menu in menus %}
+			{% if menu.children %}
+				<li class="{{ menu.id }}">
+					<a href="#{{ menu.id }}" data-toggle="collapse" aria-expanded="false" class="parent dropdown-toggle">
+						<i class="{{ menu.icon }}"></i>
+						{{  menu.name }}</a>
+					<ul class="collapse" id="{{ menu.id }}">
+						{% for child in menu.children %}
+							{% if child.children %}
+								<!--level 2  -->
+								<a href="#{{ child.id }}" data-toggle="collapse" aria-expanded="false" class="parent dropdown-toggle">{{ child.name }}</a>
+								<ul class="collapse" id="{{ child.id }}">
+									{% for child_2 in child.children %}
+										<!-- level 3 -->
+										{% if child_2.children %}
+											<a href="#{{ child_2.id }}" data-toggle="collapse" aria-expanded="false" class="parent dropdown-toggle">{{ child_2.name }}</a>
+											<ul class="collapse" id="{{ child_2.id }}">
+												{% for child_3 in child_2.children %}
+													<li>
+														<a href="{{ child_3.href }}">{{ child_3.name }}</a>
+													</li>
+												{% endfor %}
+											</ul>
+										{% else %}
+											<li>
+												<a href="{{ child_2.href }}">{{ child_2.name }}</a>
+											</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							{% else %}
+								<li>
+									<a href="{{ child.href }}">{{ child.name }}</a>
+								</li>
+							{% endif %}
+						{% endfor %}
+						<!-- level 2 ./End -->
+					</ul>
+				</li>
+			{% else %}
+				<li class="{{ menu.id }}">
+					<a href="{{ menu.href }}">
+						<i class="{{ menu.icon }}"></i>
+						{{  menu.name }}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</nav>

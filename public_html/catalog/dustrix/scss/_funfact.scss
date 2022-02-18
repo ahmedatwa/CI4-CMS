@@ -1,0 +1,242 @@
+.funfact-wrap {
+   background-color: #d55342;
+   z-index: -1;
+   margin-top: -200px;
+
+   @media (max-width: 991px) {
+      margin-top: -160px;
+   }
+
+   @media (max-width: 767px) {
+      margin-top: -120px;
+   }
+
+   .single-fact {
+      margin-top: 80px;
+
+      @media (max-width: 991px) {
+         margin-top: 60px;
+      }
+
+      @media (max-width: 767px) {
+         margin-top: 40px;
+      }
+
+      .icon {
+         float: left;
+         overflow: hidden;
+         margin-right: 25px;
+
+         img {
+
+         }
+      }
+
+      .numbers {
+         overflow: hidden;
+
+         .digit {
+            margin-top: -6px;
+            font-size: 60px;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+
+            &::before {
+               position: absolute;
+               right: -10px;
+               bottom: 10px;
+               font-size: 18px;
+               line-height: 1;
+               font-weight: 700;
+               content: "+";
+            }
+
+            span {
+
+            }
+         }
+
+         p {
+            position: relative;
+            padding-left: 30px;            
+
+            &::before {
+               position: absolute;
+               left: 0;
+               content: "---";               
+               color: #dd867a;         
+            }
+         }
+      }
+   }
+}
+
+.single-skill-bar {
+   margin-top: 30px;
+
+   h4 {
+      margin-bottom: 5px;
+   }
+
+   .progress {
+      height: 12px;
+
+      .progress-bar {
+         background-color: $theme-color-3;
+         color: #000;
+      }
+   }
+}
+
+.svg-line {
+   position: absolute;
+   z-index: -1;
+   content: "";
+   width: 100%;
+   height: 100%;
+   left: 0;
+   top: 50%;
+}
+
+.timeline-carousel-wrapper {
+
+   .owl-item {
+      &:nth-child(2n) {
+         padding-top: 40px;
+      }
+   }
+
+   .single-time-line { 
+      text-align: center;
+      margin-top: 30px;
+
+      h2 { 
+         text-transform: capitalize;
+         font-size: 80px;
+         line-height: 1;
+         color: #fff;
+         -webkit-text-stroke:2px $theme-color-2;
+      }
+   
+      .icon { 
+         border-radius: 50%;
+         background-color: #fff;
+         box-shadow: 0px 16px 32px 0px rgba(52, 52, 52, 0.08);
+         width: 50px;
+         height: 50px;
+         display: inline-block;
+         line-height: 54px;
+         color: $second-color;
+         margin: 30px 0px;
+      
+      }
+   
+      .content { 
+   
+         h4 { 
+            margin-bottom: 15px;
+         }
+   
+         p { 
+            font-size: 15px;
+            line-height: 28px;
+         }
+      }
+   }
+}
+
+.funfact-wrapper {
+   position: relative;
+   z-index: 1;
+
+   &.bottom {
+   
+      &::before {
+         bottom: 0;
+         top: auto;
+      }   
+   }
+
+   &.no-bg {
+      &::before {
+         display: none;
+      } 
+   }
+
+   &::before {
+      position: absolute;
+      height: 50%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: $section-bg;
+      content: "";
+   }
+
+   .container {
+
+      @media (min-width: 1500px) {
+         max-width: 1400px;
+         width: 100%;
+      }
+
+   }
+   .funfact-content-grid {
+      background-color: $theme-dark;
+      justify-content: space-around;
+   }
+}
+
+.funfact-content-grid {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-template-rows: auto;
+   justify-content: space-between;
+   text-align: center;
+   align-items: center;
+   border-radius: 7px;
+   padding: 80px 0px 70px;
+
+   @media (max-width: 991px) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 40px;
+   }
+   
+   @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      grid-gap: 40px;
+   }
+
+   .single-funfact-item { 
+
+      .icon { 
+         font-size: 42px;
+         line-height: 1;
+         margin-bottom: 20px;
+      }
+   
+      h3 { 
+         font-weight: 500;
+         font-size: 55px;
+         line-height: 1;
+         position: relative;
+         display: inline-block;
+
+         &::before {
+            position: absolute;
+            content: "+";
+            right: -20px;
+            top: -15px;
+            font-size: 30px;
+            font-weight: 400;
+         }
+      }
+   
+      p { 
+         margin-top: 5px;
+      }
+   }
+}

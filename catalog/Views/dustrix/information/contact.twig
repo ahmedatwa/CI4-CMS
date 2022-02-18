@@ -1,0 +1,120 @@
+{{ header}}{{ menu }}
+<div class="jumbotron p-0 text-white bg-transparent">
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2461.7357022267965!2d-8.4723965843174!3d51.9022871895744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4844900e7520086f%3A0xd77060c23b6081d1!2sHappy%20Days%20Montessori!5e0!3m2!1sen!2sie!4v1630965370582!5m2!1sen!2sie" width="1437" height="450" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+</div>
+<main role="main" class="container">
+	<div class="row">{{ column_left }}
+		{% if column_left|length > 123 or column_right|length > 123 %}
+			{% set class = 'col-sm-12 col-md-8' %}
+		{% else %}
+			{% set class = 'col-12' %}
+		{% endif %}
+		<div class="{{ class }}">
+			<section>
+				<div class="row mb-3">
+					<div class="col-sm-6">
+						<div class="card bg-white mb-3">
+							<div class="card-header">
+								<i class="fas fa-map-marker-alt"></i>
+								{{ text_location }}
+							</div>
+							<div class="card-body">
+								<ul>
+									<li>{{ text_address }}
+										:
+										{{ address }}</li>
+									<li>{{ text_telephone }}
+										:
+										{{ telephone }}</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card text-white bg-info mb-3">
+							<div class="card-header">
+								<i class="far fa-clock"></i>
+								{{ text_open }}
+							</div>
+							<div class="card-body">
+								<ul>
+									{% for time in open_hours %}
+										<li>{{ time }}</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-5">
+					<div class="card-header">
+						<i class="far fa-envelope"></i>
+						{{ text_contact_form }}
+					</div>
+					<div class="card-body">
+						<form id="form-contact" accept-charset="utf-8" encrypt="multipart/form-data">
+							<input type="hidden" name="{{ csrf_token() }}" value="{{ csrf_hash() }}"/>
+							<div class="form-group">
+								<label for="input-name">{{ entry_name }}</label>
+								<input type="text" name="name" class="form-control" id="input-name" aria-describedby="emailHelp">
+							</div>
+							<div class="form-group">
+								<label for="input-email">{{ entry_email }}</label>
+								<input type="text" name="email" class="form-control" id="input-email">
+							</div>
+							<div class="form-group">
+								<label for="input-enquiry">{{ entry_enquiry }}</label>
+								<textarea name="inquiry" class="form-control" id="input-inquiry" rows="7" cols="5"></textarea>
+							</div>
+							<button type="button" id="button-contact" class="btn btn-primary" data-loading-text="Loading...">
+								<i class="far fa-paper-plane"></i>
+								{{ button_submit }}</button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+		{{ column_right }}
+	</div>
+</main>
+
+<script type="text/javascript">
+$('#button-contact').on('click', function() {
+		let $node = this;
+		$.ajax({
+			url: 'information/contact/send',
+			headers: {
+              "X-Requested-With": "XMLHttpRequest"
+           },
+		   dataType: 'json',
+		   method: 'POST',
+		   data:$("#form-contact").serialize(),
+		   beforeSend: function() {
+				$('.alert, .invalid-feedback').remove();
+				$('form-contact-us input').removeClass('is-invalid');
+				$($node).button("loading");
+		   },
+		   complete: function() {
+				$($node).button("reset");
+		   },
+		   success: function(json) {
+		   	if (json['errors']) {
+		   		for (i in json['errors']) {
+		   			var el = $('#input-' + i );
+		   			el.addClass('is-invalid');
+		   			el.after('<div class="invalid-feedback">' + json['errors'][i] + '</div>');
+		   		}
+		   	}
+
+		   	if (json['success']) {
+		   		$('#form-contact-us').before('<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="fas fa-check-circle"></i> ' + json['success'] +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+		   	}
+		   },
+		   error: function(xhr, ajaxOptions, thrownError) {
+		      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		   }
+		});
+	});
+</script>
+{{ footer }}

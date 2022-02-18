@@ -1,0 +1,287 @@
+/* ------------------------------------------------------------------
+    Template All Variables Defined - Value Change with Your's Need
+ -------------------------------------------------------------------- */
+$white:#FFF;
+$gray:#f4f7fd;
+$red: #FF8888;
+$base: #1085A9;
+$black:#000;
+$blue: #01A0E1;
+$pink: #FF681B;
+$info: #FAA21A;
+$green: #3FAD48;
+$primary: #8DC63F;
+$secondary: #F47102;
+
+// Theme Color - Defualt Colors
+$textcolor: #666;
+$section-bg: #f6f6f6;
+$theme-color: #ff5e14;
+$theme-dark: #f04e04;
+$second-color: #00235A;
+$second-color-dark: #011d49;
+$theme-color-2 : #ff5e14;
+$theme-color-3 : #ffd039;
+
+$box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.04);
+
+$sticky-bg-1: #ff8f9f;
+$sticky-bg-2: #ea5c50;
+
+
+@mixin border-radius($r) {
+    -webkit-border-radius: $r;
+    -moz-border-radius: $r;
+    -ms-border-radius: $r;
+    border-radius: $r;
+}
+
+@mixin transition($transition) {
+    -webkit-transition: all $transition ease-in-out;
+    -moz-transition: all $transition ease-in-out;
+    -ms-transition: all $transition ease-in-out;
+    -o-transition: all $transition ease-in-out;
+    transition: all $transition ease-in-out;
+}
+
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin coverbg {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+@mixin appearance {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        cursor: pointer;
+        display: block;
+        width: 8px;
+        color: #333;
+        text-align: center;
+        position: relative;
+    }
+}
+
+@mixin overlay($color, $opacity) {
+    z-index: 1;
+    position: relative;
+
+    &:before {
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        content: '';
+        position: absolute;
+        background: rgba($color, $opacity);
+        @include transition(all 0.3s ease);
+    }
+}
+
+@mixin absolute($z-index) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: $z-index;
+}
+
+@mixin before($zindex) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    z-index: $zindex;
+}
+
+@function calculateRem($size) {
+    $rem-size: $size / 16px;
+    @return $rem-size * 1rem;
+}
+
+@mixin font-size($size: 16px) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+@mixin letter-spacing($letter-track, $font-size) {
+    letter-spacing: $letter-track * $font-size / 1000 + px;
+}
+
+@mixin align-center($type: 'all') {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    // all
+    @if $type=='all' {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+
+        // horizontal
+    }
+
+    @else if $type=='horizontal' {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+
+        // vertical
+    }
+
+    @else if $type=='vertical' {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+
+        // vertical
+    }
+
+    @else if $type=='bottom' {
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+    }
+}
+
+@mixin placeholder($color, $font_size, $font_weight) {
+    &::-webkit-input-placeholder {
+        color: $color;
+        font-size: $font_size;
+        font-weight: $font_weight;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+        font-size: $font_size;
+        font-weight: $font_weight;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color;
+        font-size: $font_size;
+        font-weight: $font_weight;
+    }
+
+    &:-moz-placeholder {
+        color: $color;
+        font-size: $font_size;
+        font-weight: $font_weight;
+    }
+}
+
+@mixin angle($pseudo, $flip: false, $use-background-color: false, $angle: 3deg) {
+
+    // $pseudo: before, after, both
+    @if $pseudo=='before'or $pseudo=='after'or $pseudo=='both' {
+        z-index: 1;
+        position: relative;
+        $selector: if($pseudo=='both', '&:before,&:after', '&:#{$pseudo}');
+
+        #{$selector} {
+            left: 0;
+            right: 0;
+            content: '';
+            z-index: -1;
+            height: 100px;
+            display: block;
+            position: absolute;
+            -webkit-backface-visibility: hidden;
+
+            @if $use-background-color {
+                background: $color__background-body;
+            }
+
+            @else {
+                background: inherit;
+            }
+        }
+
+        @if $pseudo=='before' {
+            #{$selector} {
+                top: 0;
+
+                @if $flip {
+                    transform: skewY($angle * -1);
+                    transform-origin: 0 0;
+                }
+
+                @else {
+                    transform: skewY($angle);
+                    transform-origin: 100% 0;
+                }
+            }
+        }
+
+        @if $pseudo=='after' {
+            #{$selector} {
+                bottom: 0;
+
+                @if $flip {
+                    transform: skewY($angle);
+                    transform-origin: 0 100%;
+                }
+
+                @else {
+                    transform: skewY($angle * -1);
+                    transform-origin: 100%;
+                }
+            }
+        }
+
+        @if $pseudo=='both' {
+
+            &:before {
+                top: 0;
+
+                @if $flip {
+                    transform: skewY($angle * -1);
+                    transform-origin: 0 0;
+                }
+
+                @else {
+                    transform: skewY($angle);
+                    transform-origin: 100% 0;
+                }
+            }
+
+            &:after {
+                bottom: 0;
+
+                @if $flip {
+                    transform: skewY($angle);
+                    transform-origin: 0 0;
+                }
+
+                @else {
+                    transform: skewY($angle * -1);
+                    transform-origin: 100%;
+                }
+            }
+        }
+    }
+}
