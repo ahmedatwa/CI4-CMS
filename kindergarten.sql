@@ -35,7 +35,7 @@ CREATE TABLE `ci_application` (
   `download_id` tinyint(1) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `ci_application` (
 CREATE TABLE `ci_application_status` (
   `status_id` int NOT NULL,
   `name` varchar(32) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_application_status`
@@ -72,7 +72,7 @@ CREATE TABLE `ci_banner` (
   `banner_id` int NOT NULL,
   `name` varchar(64) NOT NULL,
   `status` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_banner`
@@ -95,7 +95,7 @@ CREATE TABLE `ci_banner_image` (
   `link` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `sort_order` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_banner_image`
@@ -116,7 +116,7 @@ CREATE TABLE `ci_blog_category` (
   `category_id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `ci_blog_comment` (
   `comment` text NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` int UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE `ci_blog_post` (
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ CREATE TABLE `ci_category` (
   `status` tinyint(1) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -191,7 +191,7 @@ CREATE TABLE `ci_category_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -211,7 +211,7 @@ CREATE TABLE `ci_children` (
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0',
   `date_deleted` int UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_children`
@@ -232,7 +232,7 @@ CREATE TABLE `ci_children_group` (
   `description` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL,
   `date_modified` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_children_group`
@@ -253,7 +253,7 @@ CREATE TABLE `ci_children_scheme` (
   `description` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_children_scheme`
@@ -280,7 +280,7 @@ CREATE TABLE `ci_currency` (
   `status` tinyint(1) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_currency`
@@ -316,7 +316,7 @@ CREATE TABLE `ci_customer` (
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0',
   `date_deleted` int UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_customer`
@@ -339,7 +339,7 @@ CREATE TABLE `ci_customer_activity` (
   `ip` varchar(40) NOT NULL,
   `user_agent` varchar(255) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -353,7 +353,7 @@ CREATE TABLE `ci_customer_group` (
   `description` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL,
   `date_modified` int UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_customer_group`
@@ -374,7 +374,7 @@ CREATE TABLE `ci_customer_ip` (
   `ip` varchar(40) NOT NULL,
   `user_agent` varchar(255) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_customer_ip`
@@ -477,7 +477,7 @@ CREATE TABLE `ci_customer_login` (
   `total` int NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -492,7 +492,7 @@ CREATE TABLE `ci_customer_online` (
   `url` text NOT NULL,
   `referer` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -509,7 +509,7 @@ CREATE TABLE `ci_event` (
   `status` tinyint(1) NOT NULL,
   `priority` int NOT NULL DEFAULT '0',
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_event`
@@ -531,7 +531,7 @@ CREATE TABLE `ci_extension` (
   `extension_id` int NOT NULL,
   `type` varchar(32) NOT NULL,
   `code` varchar(32) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_extension`
@@ -568,7 +568,7 @@ CREATE TABLE `ci_information` (
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0',
   `date_deleted` int UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_information`
@@ -596,7 +596,7 @@ CREATE TABLE `ci_information_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_information_description`
@@ -625,7 +625,7 @@ CREATE TABLE `ci_language` (
   `locale` varchar(255) NOT NULL,
   `sort_order` int NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_language`
@@ -644,7 +644,7 @@ INSERT INTO `ci_language` (`language_id`, `name`, `code`, `locale`, `sort_order`
 CREATE TABLE `ci_layout` (
   `layout_id` int NOT NULL,
   `name` varchar(64) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_layout`
@@ -669,7 +669,7 @@ CREATE TABLE `ci_layout_module` (
   `code` varchar(64) NOT NULL,
   `position` varchar(14) NOT NULL,
   `sort_order` int NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_layout_module`
@@ -697,7 +697,7 @@ CREATE TABLE `ci_layout_route` (
   `layout_id` int NOT NULL,
   `site_id` int NOT NULL,
   `route` varchar(64) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_layout_route`
@@ -720,7 +720,7 @@ CREATE TABLE `ci_module` (
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
   `setting` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_module`
@@ -753,7 +753,7 @@ CREATE TABLE `ci_routes` (
   `language_id` int NOT NULL,
   `keyword` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `segment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_routes`
@@ -775,7 +775,7 @@ CREATE TABLE `ci_schemes` (
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0',
   `date_deleted` int UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_schemes`
@@ -796,7 +796,7 @@ CREATE TABLE `ci_sessions` (
   `ip_address` varchar(45) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_sessions`
@@ -900,7 +900,7 @@ CREATE TABLE `ci_setting` (
   `key` varchar(128) NOT NULL,
   `value` text NOT NULL,
   `serialized` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_setting`
@@ -958,7 +958,7 @@ CREATE TABLE `ci_translation` (
   `key` varchar(64) NOT NULL,
   `value` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -977,7 +977,7 @@ CREATE TABLE `ci_upload` (
   `ext` varchar(32) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1000,7 @@ CREATE TABLE `ci_user` (
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0',
   `date_deleted` int UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_user`
@@ -1023,7 +1023,7 @@ CREATE TABLE `ci_user_activity` (
   `ip` varchar(40) NOT NULL,
   `user_agent` varchar(255) NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1037,7 +1037,7 @@ CREATE TABLE `ci_user_group` (
   `permission` text NOT NULL,
   `date_added` int UNSIGNED NOT NULL DEFAULT '0',
   `date_modified` int UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Dumping data for table `ci_user_group`
