@@ -133,7 +133,7 @@ class Twig
 
         // still no file found throw exeption
         if (! $file) {
-            throw TemplateException::forFileNotFound($filename);
+            throw TemplateException::forFileNotFound($realPath);
         }
 
         // set the language Data

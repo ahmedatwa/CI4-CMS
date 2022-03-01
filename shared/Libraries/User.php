@@ -60,6 +60,14 @@ class User
         }
     }
 
+    /**
+     * login
+     *
+     * @param string $email
+     * @param string $password
+     *
+     * @return Boolean
+    */
     public function login(string $email, string $password): bool
     {
         $builder = $this->db->table($this->table);

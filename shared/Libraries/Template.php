@@ -14,16 +14,16 @@
 namespace Shared\Libraries;
 
 use Config\Services;
-use Psr\Log\LoggerInterface;
-use Shared\Libraries\Template\Exceptions\TemplateException;
 use Shared\Registry;
+use Psr\Log\LoggerInterface;
 use CodeIgniter\Autoloader\FileLocator;
 use Shared\Models\Design\TranslationModel;
+use Shared\Libraries\Template\Exceptions\TemplateException;
 
 class Template
 {
     /**
-     * @param	string	$adaptor
+     * @param object $adaptor
     */
     protected $adaptor;
     /**
@@ -46,7 +46,7 @@ class Template
      * @param boolean|null     $debug
      * @param LoggerInterface  $logger
     */
-    public function __construct($adaptor, FileLocator $locator = null, Registry $registry = null, bool $debug = null, LoggerInterface $logger = null)
+    public function __construct(string $adaptor, FileLocator $locator = null, Registry $registry = null, bool $debug = null, LoggerInterface $logger = null)
     {
         $this->locator  = $locator ?? Services::locator();
         $this->registry = $registry ?? Services::registry();
