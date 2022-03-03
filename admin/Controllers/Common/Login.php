@@ -27,10 +27,10 @@ class Login extends BaseController
         
         // preserve a flashdata variable
         if (isset($params['redirect'])) {
-            $redirect = $this->session->markAsTempdata($params['redirect'], 300);
-        } elseif ($this->session->getFlashdata('redirect')) {
-            $redirect = $this->session->markAsTempdata('redirect', 300);
-        }
+            $this->session->setTempdata('redirect', $params['redirect'], 300);
+        } else {
+            $this->session->setTempdata('redirect', $this->session->getFlashdata('redirect'), 300);
+        } 
 
         if (!empty($this->request->getPost('email', FILTER_SANITIZE_EMAIL))) {
             $data['email'] = $this->request->getPost('email');
@@ -44,13 +44,12 @@ class Login extends BaseController
             $data['password'] = '';
         }
 
-        if ($this->request->getPost('redirect')) {
-            $data['redirect'] = $this->request->getPost('redirect');
-        } elseif ($this->request->getPost('redirect')) {
-            $data['redirect'] = strtolower($this->session->getTempdata('redirect'));
+        if ($this->session->getTempdata('redirect')) {
+            $data['redirect'] = $this->session->getTempdata('redirect');
         } else {
             $data['redirect'] = '';
         }
+
 
         if (isset($params['warning']))  {
             $data['warning'] = $params['warning'];

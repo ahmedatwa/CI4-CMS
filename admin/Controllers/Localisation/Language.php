@@ -37,7 +37,7 @@ class Language extends BaseController
 
         if ($this->request->isAJAX()) {
             if (($this->request->getMethod() == 'post') && $this->validateForm()) {
-                $languageModel->editLanguage($this->request->getVar('language_id'), $this->request->getPost());
+                $this->languageModel->editLanguage($this->request->getVar('language_id'), $this->request->getPost());
                 $json['success']  = lang('localisation/language.text_success');
                 $json['redirect'] = site_url('localisation/language?user_token=' . $this->request->getVar('user_token'));
             } else {
@@ -99,6 +99,7 @@ class Language extends BaseController
                 'language_id' => $result['language_id'],
                 'name'        => $result['name'],
                 'code'        => $result['code'],
+                'status'      => ($result['status']) ? lang('en.text_enabled') : lang('en.text_disabled'),
                 'edit'        => site_url('localisation/language/form?user_token=' . $this->request->getVar('user_token') . '&language_id=' . $result['language_id']),
                 'delete'      => site_url('localisation/language/delete?user_token=' . $this->request->getVar('user_token') . '&language_id=' . $result['language_id']),
             ];

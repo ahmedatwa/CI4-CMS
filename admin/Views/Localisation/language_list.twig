@@ -38,6 +38,7 @@
 										<th width="1%" class="no-sort"><input id="selectAll" type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></th>
 										<th>{{ column_name }}</th>
 										<th>{{ column_code }}</th>
+										<th>{{ column_status }}</th>
 										<th width="12%">{{ column_action }}</th>
 									</tr>
 								</thead>
@@ -53,6 +54,7 @@
 											</th>
 											<td>{{ language.name }}</td>
 											<td>{{ language.code }}</td>
+											<td>{{ language.status }}</td>
 											<td class="text-center">
 												<a href="{{ language.edit }}" class="btn btn-primary btn-sm" data-toggle-tooltip="tooltip" data-placement="top" title="{{ button_edit }}"><i class="far fa-edit"></i></a>
 											</td>

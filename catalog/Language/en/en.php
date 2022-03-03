@@ -31,6 +31,7 @@ return [
     'text_yes'        => 'Yes',
     'text_no'         => 'No',
     'text_cancel'     => 'Cancel',
+    'text_contact'    => 'Contact Us',
     // Button
     'button_add'    => 'Add',
     'button_edit'   => 'Edit',

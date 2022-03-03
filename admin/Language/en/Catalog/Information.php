@@ -4,7 +4,7 @@ return [
     // Heading
     'heading_title'          => 'Information',
     // Text
-    'text_modified'          => 'You have modified information!',
+    'text_success'           => 'You have modified information!',
     'text_list'              => 'Information List',
     'text_add'               => 'Add Information',
     'text_edit'              => 'Edit Information',

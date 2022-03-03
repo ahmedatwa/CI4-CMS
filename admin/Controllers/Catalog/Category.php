@@ -61,7 +61,7 @@ class Category extends BaseController
                 $json['error_warning'] = lang('catalog/category.permission');
             }
 
-            if ($this->request->getPost('selected') && $this->validateDelete()) {
+            if ($this->request->getPost('selected')) {
                 foreach ($this->request->getPost('selected') as $category_id) {
                     $this->categoryModel->deleteCategory($category_id);
                 }

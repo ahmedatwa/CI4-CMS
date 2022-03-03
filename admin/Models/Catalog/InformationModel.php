@@ -144,16 +144,6 @@ class InformationModel extends Model
                 ];
 
                 $informationDescriptionTable->insert($informationDescriptionData);
-                //  Seo Urls
-                $seo_url = $this->db->table('seo_url');
-                $seo_url->delete(['path' => service('router')->controllerName()  . '::' . service('router')->methodName()]);
-                $seo_url_data = [
-                    'site_id'     => 0,
-                    'language_id' => $language_id,
-                    'query'       => 'information_id=' . $information_id,
-                    'keyword'     => generateSeoUrl($result['title']),
-                ];
-                $seo_url->insert($seo_url_data);
             }
         }
         // trigger the insert event
@@ -192,18 +182,6 @@ class InformationModel extends Model
                     'meta_keyword'     => $result['meta_keyword'],
                 ];
                 $informationDescriptionTable->insert($informationDescriptionData);
-                //  Seo Urls
-                if ($language_id == service('registry')->get('config_language_id')) {
-                    $seo_url = $this->db->table('seo_url');
-                    $seo_url->delete(['query' => 'information_id=' . $information_id]);
-                    $seo_url_data = [
-                        'site_id'     => 0,
-                        'language_id' => $language_id,
-                        'query'       => 'information_id=' . $information_id,
-                        'keyword'     => generateSeoUrl($result['title']),
-                    ];
-                    $seo_url->insert($seo_url_data);
-                }
             }
         }
 

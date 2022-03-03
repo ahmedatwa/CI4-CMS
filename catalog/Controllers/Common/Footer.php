@@ -14,6 +14,7 @@ class Footer extends BaseController
         $data['informations'] = [];
 
         $informationModel = new InformationModel();
+        
         foreach ($informationModel->getInformations() as $result) {
             if ($result['bottom']) {
                 $data['informations'][] = [
@@ -56,7 +57,9 @@ class Footer extends BaseController
         $data['config_address']   = $this->registry->get('config_address');
         $data['social_networks']  = $this->registry->get('config_social_networks');
 
+        // opening hours
         $data['open_hours'] = [];
+
         $config_opening_times = preg_replace('~\r?\n~', "\n", $this->registry->get('config_opening_times'));
         foreach (explode("\n", $config_opening_times) as $time) {
             $data['open_hours'][] = trim($time);

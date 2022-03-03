@@ -9,11 +9,11 @@ class Forgotten extends BaseController
 {
     public function index()
     {
-        $this->template->setTitle(lang('account/forgotten.heading_title'));
+        $this->document->setTitle(lang('account/forgotten.heading_title'));
 
         $data['breadcrumbs'] = [];
         $data['breadcrumbs'][] = [
-            'text' => lang('account/forgotten.text_home'),
+            'text' => lang($this->locale . '.text_home'),
             'href' => base_url(),
         ];
 
@@ -22,28 +22,35 @@ class Forgotten extends BaseController
             'href' => route_to('account_forgotten') ? route_to('account_forgotten') : base_url('account/forgotten'),
         ];
 
-        $data['login'] = route_to('account_login') ? route_to('account_login') : base_url('account/login');
-        $data['heading_title'] = lang('account/forgotten.heading_title');
+        $data['login'] = base_url('account/login');
+
+        $data['forgotten'] = base_url('account/forgotten/forgotten');
+
+
+        $data['header']        = view_cell("\Catalog\Controllers\Common\Header::index");
+        $data['menu']          = view_cell("\Catalog\Controllers\Common\Menu::index");
+        $data['footer']        = view_cell("\Catalog\Controllers\Common\Footer::index");
         
         lang('account/forgotten');
 
-        $this->template->output('account/forgotten', $data);
+        return $this->template->render('account/forgotten', $data);
     }
 
     public function forgotten()
     {
         $json = [];
+
         if ($this->request->isAJAX() && ($this->request->getMethod() == 'post')) {
             $customerModel = new CustomerModel();
 
             if (! $this->validate([
               'email' => "required|valid_email",
             ])) {
-                $json['error']['email'] = $this->validator->getError('email');
+                $json['validator']['email'] = $this->validator->getError('email');
             }
 
             if (! $customerModel->getTotalCustomersByEmail($this->request->getPost('email', FILTER_SANITIZE_EMAIL))) {
-                $json['error']['not_found'] = lang('account/forgotten.error.email');
+                $json['validator']['not_found'] = lang('account/forgotten.error.email');
             }
 
         if (! $json) {

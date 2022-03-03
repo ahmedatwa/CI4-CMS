@@ -74,17 +74,18 @@ class ModulesModel extends Model
         $builder->delete(['module_id' => $module_id]);
         // Layout Module
         $layout_module = $this->db->table('layout_module');
-        $layout_module->delete(['code', $module_id]);
+        $layout_module->like('code', $module_id, 'before')
+                      ->delete();
     }
 
     public function getModulesByCode(string $code)
     {
         $builder = $this->db->table($this->table);
-        $query = $builder->select()
+        return $builder->select()
                          ->where('code', $code)
                          ->orderBy('name')
-                         ->get();
-        return $query->getResultArray();
+                         ->get()
+                         ->getResultArray();
     }
 
     public function deleteModulesByCode(string $code)
@@ -92,9 +93,10 @@ class ModulesModel extends Model
         // Modules
         $builder = $this->db->table($this->table);
         $builder->delete(['code' => $code]);
-        // Layout Modules
+        // Layout Module
         $layout_module = $this->db->table('layout_module');
-        $layout_module->where('code', $code)->delete();
+        $layout_module->like('code', $module_id, 'before')
+                      ->delete();
     }
 
     // ----------------------------------------------------

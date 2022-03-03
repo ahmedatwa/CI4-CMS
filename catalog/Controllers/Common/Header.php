@@ -87,6 +87,8 @@ class Header extends BaseController
             }
         }
 
+        $data['contact']     = base_url('information/contact');
+
         $data['logged'] = $this->customer->isLogged();
         $data['username'] = $this->customer->getName();
 

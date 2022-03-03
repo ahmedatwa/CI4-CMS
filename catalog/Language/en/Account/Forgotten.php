@@ -4,7 +4,7 @@ return [
 	'heading_title'   => 'Forgot Your Password?',
 	// Text
 	'text_account'    => 'Account',
-	'text_forgotten'  => 'Forgotten Password',
+	'text_title'      => 'Forgotten Password',
 	'text_your_email' => 'Your E-Mail Address',
 	'text_email'      => 'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.',
 	'text_login'      => 'Login',

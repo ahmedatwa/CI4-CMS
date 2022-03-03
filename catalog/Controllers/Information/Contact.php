@@ -21,10 +21,13 @@ class Contact extends BaseController
             'href' => base_url('information/contact')
         ];
 
-        $data['site']       = $this->registry->get('config_name');
-        $data['address']    = nl2br($this->registry->get('config_address'));
-        $data['telephone']  = $this->registry->get('config_telephone');
+        $data['site']         = $this->registry->get('config_name');
+        $data['address']      = nl2br($this->registry->get('config_address'));
+        $data['telephone']    = $this->registry->get('config_telephone');
+        $data['config_email'] = $this->registry->get('config_email');
+
         $data['open_hours'] = [];
+
         $config_opening_times = preg_replace('~\r?\n~', "\n", $this->registry->get('config_opening_times'));
         foreach (explode("\n", $config_opening_times) as $time) {
             $data['open_hours'][] = trim($time);

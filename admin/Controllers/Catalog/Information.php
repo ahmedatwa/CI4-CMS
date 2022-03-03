@@ -195,7 +195,7 @@ class Information extends BaseController
         }
 
         $languageModel = new LanguageModel();
-        $data['languages'] = $languageModel->findAll();
+        $data['languages'] = $languageModel->where('status', 1)->findAll();
 
         $data['header']       = view_cell("\Admin\Controllers\Common\Header::index");
         $data['column_left']  = view_cell("\Admin\Controllers\Common\Column_left::index");

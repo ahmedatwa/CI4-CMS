@@ -8,6 +8,7 @@ return [
 	'text_contact_form' => 'Contact Form',
 	'text_address'      => 'Address',
 	'text_telephone'    => 'Telephone',
+	'text_email'        => 'E-Mail',
 	'text_fax'          => 'Fax',
 	'text_comment'      => 'Comments',
 	'text_subject'      => 'Enquiry %s',

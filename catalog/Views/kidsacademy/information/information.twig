@@ -1,0 +1,31 @@
+{{ header}}{{ menu }}
+<div class="jumbotron p-4 p-md-5 rounded shadow-sm jumbotron-image" data-background-image="images/catalog/single-task.jpg">
+	<div class="col-md-6 px-0 header-details ">
+		<h3 class="display-4 font-italic">{{ heading_title }}</h3>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item">
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ol>
+		</nav>
+	</div>
+</div>
+<main role="main" class="container">
+	<div class="row">{{ column_left }}
+		{% if column_left|length > 123 or column_right|length > 123 %}
+			{% set class = 'col-sm-12 col-md-8' %}
+		{% else %}
+			{% set class = 'col-12' %}
+		{% endif %}
+		<div class="{{ class }}">
+			<section>
+				<p>{{ description }}</p>
+			</section>
+		</div>
+		{{ column_right }}
+	</div>
+</main>
+{{ footer }}
