@@ -85,6 +85,7 @@ class Services extends BaseService
     public static function template($getShared = true)
     {
         $engine = self::registry()->get('config_template_engine') ?: 'twig';
+        
         if ($getShared) {
             return static::getSharedInstance('template');
         }
