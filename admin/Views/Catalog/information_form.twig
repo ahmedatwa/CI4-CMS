@@ -37,6 +37,9 @@
 						<li class="nav-item" role="presentation">
 							<a class="nav-link mr-2" id="{{ tab_data }}-tab" data-toggle="tab" href="#{{ tab_data }}" role="tab" aria-controls="{{ tab_data }}" aria-selected="false">{{ tab_data }}</a>
 						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link mr-2" id="{{ tab_seo }}-tab" data-toggle="tab" href="#{{ tab_seo }}" role="tab" aria-controls="{{ tab_seo }}" aria-selected="false">{{ tab_seo }}</a>
+						</li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane fade show active" id="{{ tab_general }}" role="tabpanel" aria-labelledby="{{ tab_general }}-tab">
@@ -162,7 +165,37 @@
 							</div>
 
 						</div>
-					</div>
+						<div class="tab-pane" id="{{ tab_seo }}" role="tabpanel" aria-labelledby="{{ tab_seo }}-tab">
+							<div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_keyword }}</div>
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<td class="text-left">{{ entry_keyword }}</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-left">{% for language in languages %}
+												<div class="input-group mb-3">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">{{ language.name }}</span>
+													</div>
+													<input type="text" name="information_seo_url[{{ language.language_id }}]"
+														value="{% if information_seo_url[language.language_id] %}{{ information_seo_url[language.language_id] }}{% endif %}"
+														placeholder="{{ entry_keyword }}" class="form-control" />
+
+													{% if error_keyword[language.language_id] %}
+													<div class="text-danger">{{ error_keyword[language.language_id] }}</div>
+													{% endif %}
+													{% endfor %}
+												</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						</div>
 				</form>
 			</div>
 			<!-- Card Body -->

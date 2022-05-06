@@ -76,4 +76,3 @@ Events::on('pre_system', function () {
      * setting registry vars and locale.
      */
     Events::on('pre_system', APP_NAMESPACE . '\Events\StartupEvent::index');
-

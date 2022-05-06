@@ -17,7 +17,7 @@ class Document
      */
     public function setTitle(string $title): void
     {
-        $this->title = $title;
+        $this->title = ucfirst($title);
     }
     /**
      *

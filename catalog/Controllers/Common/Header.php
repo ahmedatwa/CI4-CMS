@@ -82,20 +82,20 @@ class Header extends BaseController
                 $data['informations'][] = [
                     'information_id' => $result['information_id'],
                     'title'          => $result['title'],
-                    'href'           => base_url("information/information/?information_id=" . $result['information_id'] . '&locale=' . $this->locale),
+                    'href'           => base_url("information/information/?information_id=" . $result['information_id'] . '&locale=' . $this->locale . '&currency=' . $this->currency),
                 ];
             }
         }
 
-        $data['contact']     = base_url('information/contact');
+        $data['contact']     = route_to('contact_us');
 
         $data['logged'] = $this->customer->isLogged();
         $data['username'] = $this->customer->getName();
 
-        $data['login']     = base_url('account/login');
-        $data['profile']   = base_url('account/profile');
-        $data['dashboard'] = base_url('account/dashboard');
-        $data['logout']    = base_url('account/logout');
+        $data['login']     = route_to('account_login');
+        $data['profile']   = route_to('account_profile');
+        $data['dashboard'] = route_to('account_dashboard');
+        $data['logout']    = route_to('account_logout');
 
         if (is_file(DIR_IMAGE . $this->session->get('image'))) {
             $data['image'] = slash_item(env('app.siteURL'))  . 'images/' . $this->session->get('image');

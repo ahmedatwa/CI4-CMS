@@ -8,6 +8,7 @@ return [
     'text_list'              => 'Information List',
     'text_add'               => 'Add Information',
     'text_edit'              => 'Edit Information',
+    'text_keyword'           => 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.',
     // Column
     'column_title'           => 'Title',
     // Entry

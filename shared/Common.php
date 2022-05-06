@@ -92,7 +92,7 @@ if (! function_exists('generateSeoUrl')) {
     function generateSeoUrl(string $string): ?string
     {
         helper('text');
-        $string = strtolower(url_title(convert_accented_characters($string), '-'));
+        $string = strtolower(url_title(entities_to_ascii($string), '-'));
         return reduce_multiples($string, '-', true);
     }
 }
@@ -123,63 +123,62 @@ if (! function_exists('slash_item')) {
 
  //--------------------------------------------------------------------
  if (! function_exists('lang')) {
-    /**
-     * A convenience method to translate a string or array of them and format
-     * the result with the intl extension's MessageFormatter.
-     *
-     * @return string
-     */
-    function lang(string $line, array $args = [], ?string $locale = null)
-    {
-        
-        $tempData = [];
+     /**
+      * A convenience method to translate a string or array of them and format
+      * the result with the intl extension's MessageFormatter.
+      *
+      * @return string
+      */
+     function lang(string $line, array $args = [], ?string $locale = null)
+     {
+         $tempData = [];
 
-        $locale = Services::registry()->get('locale') ?? Services::request()->getLocale();
+         $locale = Services::registry()->get('locale') ?? Services::request()->getLocale();
    
-        // getting the parsed the line
-        if (strpos($line, '.') == false) {
+         // getting the parsed the line
+         if (strpos($line, '.') == false) {
 
            // fill the array with controller lang strings
-            if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
-                $tempData[$line] = require($file);
-            }
+             if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
+                 $tempData[$line] = require($file);
+             }
 
-            // Load the main locale file if found
-            if ($mainLangFile = Services::locator()->locateFile(ucwords($locale), "Language/{$locale}", 'php')) {
-                $tempData[$locale] = require($mainLangFile);
-            } 
+             // Load the main locale file if found
+             if ($mainLangFile = Services::locator()->locateFile(ucwords($locale), "Language/{$locale}", 'php')) {
+                 $tempData[$locale] = require($mainLangFile);
+             }
             
-            // Replace the data with any keys set by language editor
-            $translationModel = new TranslationModel();
-            $results = $translationModel->where([
+             // Replace the data with any keys set by language editor
+             $translationModel = new TranslationModel();
+             $results = $translationModel->where([
                             'route'       => $line,
                             'language_id' => Services::registry()->get('config_language_id')
                         ])->findAll();
 
-            if ($results) {
-                foreach ($results as $result) {
-                    if ($result['route'] ==  $line) {
-                        $tempData[$line][$result['key']] = $result['value'];
-                    }
-                }
-            }
-        }
+             if ($results) {
+                 foreach ($results as $result) {
+                     if ($result['route'] ==  $line) {
+                         $tempData[$line][$result['key']] = $result['value'];
+                     }
+                 }
+             }
+         }
       
-        // set the template data
-        Services::template()->setData($tempData);
+         // set the template data
+         Services::template()->setData($tempData);
 
-        // override case-sensitivity on live server
-        if (strpos($line, '/')) {
-            $parts = array_map('ucfirst', explode('/', $line));
-            $line  = implode('/', $parts);
-        } elseif(substr($line, 0, 2) == $locale) {
-            $line = ucfirst($line);
-        }
+         // override case-sensitivity on live server
+         if (strpos($line, '/')) {
+             $parts = array_map('ucfirst', explode('/', $line));
+             $line  = implode('/', $parts);
+         } elseif (substr($line, 0, 2) == $locale) {
+             $line = ucfirst($line);
+         }
 
-        return Services::language($locale)
+         return Services::language($locale)
                         ->getLine($line, $args);
-    }
-}
+     }
+ }
 //--------------------------------------------------------------------
 
 if (! function_exists('resizeImage')) {
@@ -287,3 +286,27 @@ if (! function_exists('token')) {
 }
 
 //--------------------------------------------------------------------
+
+if (! function_exists('adminUrl')) {
+    /*
+    * @return String
+    * @vars relativePath String
+    *
+    */
+    function adminUrl($relativePath = ''): string
+    {
+        return slash_item(env('app.adminURL')) . $relativePath;
+    }
+}
+if (! function_exists('siteUrl')) {
+
+    /*
+    * @return String
+    * @vars relativePath String
+    *
+    */
+    function siteUrl($relativePath = ''): string
+    {
+        return slash_item(env('app.siteURL')) . $relativePath;
+    }
+}

@@ -57,9 +57,9 @@ class InformationModel extends Model
     public function getInformations(array $data = [])
     {
         $builder = $this->db->table('information i');
-        $builder->select();
-        $builder->join('information_description id', 'i.information_id = id.information_id', 'left');
-        $builder->where('id.language_id', (int) service('registry')->get('config_language_id'));
+        $builder->select()
+                ->join('information_description id', 'i.information_id = id.information_id', 'left')
+                ->where('id.language_id', (int) service('registry')->get('config_language_id'));
         
         if (isset($data['order_by']) && $data['order_by'] == 'DESC') {
             $builder->orderBy('id.title', 'DESC');
@@ -130,13 +130,11 @@ class InformationModel extends Model
         if (isset($data['information_description'])) {
             $informationDescriptionTable = $this->db->table('information_description');
             foreach ($data['information_description'] as $language_id => $result) {
-                // if ($language_id == service('registry')->get('config_language_id')) {
-                //     $keyword = generateSeoUrl($result['title']) . '-' . $information_id;
-                // }
                 $informationDescriptionData = [
                     'information_id'   => $information_id,
                     'language_id'      => $language_id,
                     'title'            => $result['title'],
+                    'keyword'          => generateSeoUrl($result['title']),
                     'description'      => $result['description'],
                     'meta_title'       => $result['meta_title'],
                     'meta_description' => $result['meta_description'],
@@ -176,6 +174,7 @@ class InformationModel extends Model
                     'information_id'   => $information_id,
                     'language_id'      => $language_id,
                     'title'            => $result['title'],
+                    'keyword'          => generateSeoUrl($result['title']),
                     'description'      => $result['description'],
                     'meta_title'       => $result['meta_title'],
                     'meta_description' => $result['meta_description'],

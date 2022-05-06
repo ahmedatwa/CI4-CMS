@@ -35,22 +35,22 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Common\Home::index', ['as' => 'home']);
 
 // Information
-//$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact']);
-// $routes->add('{locale}/(:segment)', 'Information\Information::index/$1', ['as' => 'information']);
+$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact_us']);
+$routes->add('{locale}/i/(:any)', 'Information\Information::index/$1', ['as' => 'information']);
 
-// // Category
-// $routes->add('{locale}/category/(:alphanum)', 'Catalog\Category::index/$1', ['as' => 'category']);
+// Category
+$routes->add('{locale}/category/(:alphanum)', 'Catalog\Category::index/$1', ['as' => 'category']);
 
-// // Account
-// $routes->group('{locale}/account', function($routes)
-// {
-// 	$routes->add('login', 'Account/Login::index', ['as' => 'account_login']);
-//     $routes->add('register', 'Account/Register::index', ['as' => 'account_register']);
-// 	$routes->add('dashboard', 'Account/Dashboard::index/$1', ['as' => 'account_dashboard']);
-// 	$routes->add('success', 'Account/Success::index/$1', ['as' => 'account_success']);
-// 	$routes->add('logout', 'Account/Logout::index', ['as' => 'account_logout']);
+// Account
+$routes->group('{locale}/account', function($routes)
+{
+	$routes->add('login', 'Account/Login::index', ['as' => 'account_login']);
+    $routes->add('register', 'Account/Register::index', ['as' => 'account_register']);
+	$routes->add('dashboard', 'Account/Dashboard::index/$1', ['as' => 'account_dashboard']);
+	$routes->add('success', 'Account/Success::index/$1', ['as' => 'account_success']);
+	$routes->add('logout', 'Account/Logout::index', ['as' => 'account_logout']);
 
-// });
+});
 
 /*
  * --------------------------------------------------------------------

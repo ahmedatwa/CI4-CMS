@@ -167,7 +167,7 @@ class Twig
             
             $twig->addExtension(new DebugExtension());
             // CI4 PHP CSRF functions
-            $CIFunctions = ['csrf_field', 'csrf_token', 'csrf_hash', 'csrf_header'];
+            $CIFunctions = ['csrf_field', 'csrf_token', 'csrf_hash', 'csrf_header', 'adminUrl', 'siteUrl'];
             foreach ($CIFunctions as $value) {
                 if (function_exists($value)) {
                     $twig->addFunction(

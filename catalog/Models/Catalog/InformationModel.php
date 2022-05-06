@@ -6,15 +6,16 @@ use CodeIgniter\Model;
 
 class InformationModel extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'information';
-    protected $primaryKey       = 'information_id';
-    protected $useAutoIncrement = true;
-    protected $insertID         = 0;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = false;
-    protected $allowedFields    = [];
+    protected $DBGroup           = 'default';
+    protected $table             = 'information';
+    protected $table_description = 'information_description';
+    protected $primaryKey        = 'information_id';
+    protected $useAutoIncrement  = true;
+    protected $insertID          = 0;
+    protected $returnType        = 'array';
+    protected $useSoftDeletes    = false;
+    protected $protectFields     = false;
+    protected $allowedFields     = [];
 
     // Dates
     protected $useTimestamps = false;
@@ -65,13 +66,14 @@ class InformationModel extends Model
         return $query->getRowArray();
     }
     
-    public function findIdByKeyword(string $keyword)
+    public function getIdByKeyword(string $keyword)
     {
-        $builder = $this->db->table('information_description');
+        $builder = $this->db->table($this->table_description);
         $builder->where('keyword', $keyword);
-        $row = $builder->get()->getRowArray();
+        $query = $builder->get();
+        $row = $query->getRowArray();
         if ($row) {
-            return  $row[$this->primaryKey];
+            return  $row['information_id'];
         } else {
             return 0;
         }
@@ -79,7 +81,7 @@ class InformationModel extends Model
 
     public function keywordById(int $information_id)
     {
-        $builder = $this->db->table('information_description');
+        $builder = $this->db->table('seo_url');
         $builder->where('information_id', $information_id);
         $row = $builder->get()->getRow();
         if ($row) {

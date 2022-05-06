@@ -20,7 +20,7 @@ class Footer extends BaseController
                 $data['informations'][] = [
                     'information_id' => $result['information_id'],
                     'title'          => $result['title'],
-                    'href'           => base_url('information/information?information_id=' . $result['information_id']),
+                    'href'           => route_to('information', $result['keyword']),
                 ];
             }
         }
@@ -45,9 +45,9 @@ class Footer extends BaseController
         }
 
         // Social
-        $data['contact']     = base_url('information/contact');
-        $data['login']       = base_url('account/login');
-        $data['register']    = base_url('account/register');
+        $data['contact']     = route_to('contact_us');
+        $data['login']       = route_to('account_login');
+        $data['register']    = base_url('account_register');
 
         $data['text_footer']      = sprintf(lang('common/footer.text_footer'), $this->registry->get('config_name'));
         $data['config_name']      = $this->registry->get('config_name');

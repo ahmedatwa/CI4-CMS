@@ -80,6 +80,7 @@ return [
     // Tabs
     'tab_general' => 'General',
     'tab_data'    => 'Data',
+    'tab_seo'     => 'SEO',
     // Error
     'error' => [
         'record'    => 'Warning: No Record Found!',
