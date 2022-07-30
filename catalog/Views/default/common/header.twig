@@ -20,6 +20,9 @@
 		<script type="text/javascript" src="catalog/default/javascript/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="catalog/default/javascript/parallax.min.js"></script>
 		<script type="text/javascript" src="catalog/default/javascript/common.js"></script>
+		{# // vue.js #}
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
 		{% for style in styles %}
 			<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
 		{% endfor %}

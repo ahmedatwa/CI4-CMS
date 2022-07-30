@@ -21,7 +21,7 @@ class Information extends BaseController
         if ($this->request->getVar('information_id')) {
             $information_id = $this->request->getVar('information_id');
         } elseif ($keyword) {
-            $information_id = $informationModel->findIdByKeyword($keyword);
+            $information_id = $informationModel->getIdByKeyword($keyword);
         } else {
             $information_id = 0;
         }

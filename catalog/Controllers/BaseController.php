@@ -37,7 +37,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['text'];
     protected $registry;
     protected $customer;
     protected $locale = 'en';
@@ -64,6 +64,7 @@ class BaseController extends Controller
         $this->template = Services::template();
         $this->registry = Services::registry();
         $this->locale   = $this->registry->get('locale') ?? $request->getLocale();
+        $this->currency = $this->registry->get('config_currency');
         $this->customer = Services::customer();
         
     }

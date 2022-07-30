@@ -1004,7 +1004,7 @@ class RouteCollection implements RouteCollectionInterface
                 }
 
                 $route = $this->fillRouteParams($from, $params);
-
+                   
                 return $this->localizeRoute($route);
             }
         }
@@ -1017,7 +1017,7 @@ class RouteCollection implements RouteCollectionInterface
      * Replaces the {locale} tag with the current application locale
      */
     protected function localizeRoute(string $route): string
-    {
+    {   
         return strtr($route, ['{locale}' => Services::request()->getLocale()]);
     }
 

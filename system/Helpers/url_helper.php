@@ -102,7 +102,7 @@ if (! function_exists('base_url')) {
     {
         $config            = clone config('App');
         $config->indexPage = '';
-
+        
         return rtrim(site_url($relativePath, $scheme, $config), '/');
     }
 }

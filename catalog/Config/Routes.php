@@ -35,13 +35,15 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Common\Home::index', ['as' => 'home']);
 
 // Information
-//$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact']);
-// $routes->add('{locale}/(:segment)', 'Information\Information::index/$1', ['as' => 'information']);
+//$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact_us']);
 
-// // Category
-// $routes->add('{locale}/category/(:alphanum)', 'Catalog\Category::index/$1', ['as' => 'category']);
+//$routes->add('(^sp-.*$i)', 'Information\Information::index/$1', ['as' => 'information']);
+//$routes->add('[^sp-]', 'Information\Information::index/$1',  ['as' => 'information']);
 
-// // Account
+// Category
+//$routes->add('{locale}/category/(:alphanum)', 'Product\Category::index/$1/$2', ['as' => 'category']);
+
+// Account
 // $routes->group('{locale}/account', function($routes)
 // {
 // 	$routes->add('login', 'Account/Login::index', ['as' => 'account_login']);

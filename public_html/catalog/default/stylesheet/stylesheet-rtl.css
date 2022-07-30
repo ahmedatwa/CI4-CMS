@@ -678,7 +678,7 @@ img {
 
 .footer-links ul {
   list-style: none;
-  text-align: left;
+  text-align: right;
   margin: 0;
   padding: 0;
 }
@@ -698,7 +698,7 @@ img {
 
 .footer-links ul li a {
   color: #c0c0c0;
-  display: block;
+  display: inline-block;
   line-height: 25px;
   position: relative;
   z-index: 100;
@@ -734,6 +734,12 @@ img {
   opacity: 1;
 }
 
+.dropdown, .dropleft, .dropright, .dropup {
+  cursor: pointer !important;
+}
+footer .dropdown-toggle img{
+  padding-left: 2px;
+}
 /* Newsletter */
 .newsletter {
   display: flex;
@@ -966,10 +972,10 @@ main {
   float: right;
 }
 
-
 /*-------------------------------
 Jmbotron
 --------------------------------*/
+
 .jumbotron-image {
   margin-bottom: 65px;
   /* padding: 3rem 1rem; */
