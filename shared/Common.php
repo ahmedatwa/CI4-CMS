@@ -92,7 +92,7 @@ if (! function_exists('generateSeoUrl')) {
     function generateSeoUrl(string $string): ?string
     {
         helper('text');
-        $string = strtolower(url_title(entities_to_ascii($string), '-'));
+        $string = strtolower(url_title(convert_accented_characters($string), '-'));
         return reduce_multiples($string, '-', true);
     }
 }

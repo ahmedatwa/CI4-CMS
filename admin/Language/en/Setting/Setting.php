@@ -78,6 +78,7 @@ return [
     'help_login_attempts'            => 'Maximum login attempts allowed before the account is locked for 1 hour. Customer and affliate accounts can be unlocked on the customer or affliate admin pages.',
     'help_file_ext_allowed'          => 'Add which file extensions are allowed to be uploaded. Use a new line for each value.',
     'help_file_mime_allowed'         => 'Add which file mime types are allowed to be uploaded. Use a new line for each value.',
+    'help_template_engine'           => 'Front-end will crash if template engine isn\'t set correctly',
   // error
     'error' => [
       'permission'   => 'You do not have permission to modify Setting!',

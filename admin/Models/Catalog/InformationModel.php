@@ -103,6 +103,7 @@ class InformationModel extends Model
         foreach ($query->getResultArray() as $result) {
             $information_description_data[$result['language_id']] = [
                 'title'            => $result['title'],
+                'keyword'          => $result['keyword'],
                 'description'      => $result['description'],
                 'meta_title'       => $result['meta_title'],
                 'meta_description' => $result['meta_description'],
@@ -134,7 +135,7 @@ class InformationModel extends Model
                     'information_id'   => $information_id,
                     'language_id'      => $language_id,
                     'title'            => $result['title'],
-                    'keyword'          => generateSeoUrl($result['title']),
+                    'keyword'          => !empty($result['keyword']) ? 'sp-' . $result['keyword'] : generateSeoUrl('sp-' . $result['title']),
                     'description'      => $result['description'],
                     'meta_title'       => $result['meta_title'],
                     'meta_description' => $result['meta_description'],
@@ -174,7 +175,7 @@ class InformationModel extends Model
                     'information_id'   => $information_id,
                     'language_id'      => $language_id,
                     'title'            => $result['title'],
-                    'keyword'          => generateSeoUrl($result['title']),
+                    'keyword'          => !empty($result['keyword']) ? 'sp-' . $result['keyword'] : generateSeoUrl('sp-' . $result['title']),
                     'description'      => $result['description'],
                     'meta_title'       => $result['meta_title'],
                     'meta_description' => $result['meta_description'],

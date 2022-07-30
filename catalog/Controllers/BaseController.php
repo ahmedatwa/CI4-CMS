@@ -37,7 +37,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['text'];
     protected $registry;
     protected $customer;
     protected $locale = 'en';

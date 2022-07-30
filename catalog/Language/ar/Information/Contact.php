@@ -11,6 +11,7 @@ return [
 	'text_fax'         => 'الفاكس',
 	'text_comment'     => 'التعليقات',
 	'text_help_center' => 'مركز المساعدة',
+	'text_open'         => 'مواعيد العمل',
 	// Entry
 	'entry_name'       => 'الاسم',
 	'entry_email'      => 'عنوان البريد الإلكتروني',

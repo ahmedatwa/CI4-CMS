@@ -4,6 +4,8 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ * RTL-ized by Arash Laylazi (https://github.com/PerseusTheGreat)
+ * RTL rev. 1 (https://github.com/PerseusTheGreat/bootstrap-rtl)
  */
 *,
 *::before,
@@ -16,6 +18,7 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  direction: rtl;
 }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
@@ -29,7 +32,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  text-align: left;
+  text-align: right;
   background-color: #fff;
 }
 
@@ -89,8 +92,8 @@ dt {
 }
 
 dd {
+  margin-right: 0;
   margin-bottom: .5rem;
-  margin-left: 0;
 }
 
 blockquote {
@@ -180,7 +183,7 @@ caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   color: #6c757d;
-  text-align: left;
+  text-align: right;
   caption-side: bottom;
 }
 
@@ -322,4 +325,21 @@ template {
 [hidden] {
   display: none !important;
 }
-/*# sourceMappingURL=bootstrap-reboot.css.map */
+
+code,
+samp,
+var,
+[type="email"],
+[type="file"],
+[type="number"],
+[type="password"],
+[type="tel"],
+[type="url"] {
+  text-align: left;
+  direction: ltr;
+}
+
+kbd {
+  display: inline-block;
+}
+/*# sourceMappingURL=bootstrap-reboot-rtl.css.map */

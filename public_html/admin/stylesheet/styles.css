@@ -591,6 +591,9 @@ legend {
   float: none !important;
 }
 
+section {
+  text-align: right;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -630,4 +633,8 @@ legend {
 
 #header-nav .nav li:first-child {
   border-left: none;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  border-top: solid 2px #3491cf !important;
 }

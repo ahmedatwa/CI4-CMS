@@ -33,7 +33,7 @@ class Menu extends BaseController
                 'name'        => $category['name'],
                 'ico'         => $category['icon'],
                 'children'    => $children_data,
-                'href'        => base_url('project/project/list?gid=' . $category['category_id'] . '&skills=' . $category['category_id'])
+                'href'        => route_to('category', $category['category_id'], $category['keyword']),
             ];
         }
     

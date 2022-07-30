@@ -182,7 +182,7 @@
 														<span class="input-group-text" id="basic-addon1">{{ language.name }}</span>
 													</div>
 													<input type="text" name="information_seo_url[{{ language.language_id }}]"
-														value="{% if information_seo_url[language.language_id] %}{{ information_seo_url[language.language_id] }}{% endif %}"
+														value="{{ information_description[language.language_id] ? information_description[language.language_id].keyword }}"
 														placeholder="{{ entry_keyword }}" class="form-control" />
 
 													{% if error_keyword[language.language_id] %}

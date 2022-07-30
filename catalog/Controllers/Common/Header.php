@@ -57,6 +57,8 @@ class Header extends BaseController
 
         if (lang($this->locale . '.direction') == 'rtl' && file_exists('catalog/' . $this->registry->get('config_theme') .'/stylesheet/stylesheet-rtl.css')) {
             $data['stylesheet_css']   = 'catalog/' . $this->registry->get('config_theme') . '/stylesheet/stylesheet-rtl.css';
+            $data['bootstrap_css']    = 'catalog/default/vendor/bootstrap/rtl/bootstrap-rtl.min.css';
+
         } 
 
         $data['links']       = $this->document->getLinks();
@@ -82,7 +84,7 @@ class Header extends BaseController
                 $data['informations'][] = [
                     'information_id' => $result['information_id'],
                     'title'          => $result['title'],
-                    'href'           => base_url("information/information/?information_id=" . $result['information_id'] . '&locale=' . $this->locale . '&currency=' . $this->currency),
+                    //'href'           => route_to('information', $result['keyword']),
                 ];
             }
         }

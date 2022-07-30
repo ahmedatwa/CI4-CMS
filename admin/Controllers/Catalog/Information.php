@@ -162,6 +162,14 @@ class Information extends BaseController
             $data['information_description'] = [];
         }
 
+        if ($this->request->getPost('information_seo_url')) {
+            $data['information_seo_url'] = $this->request->getPost('information_seo_url');
+        } elseif ($this->request->getVar('information_id')) {
+            $data['information_seo_url'] = $this->informationModel->getInformationDescription($this->request->getVar('information_id'));
+        } else {
+            $data['information_seo_url'] = [];
+        }
+
         if ($this->request->getPost('sort_order')) {
             $data['sort_order'] = $this->request->getPost('sort_order');
         } elseif (!empty($information_info)) {
