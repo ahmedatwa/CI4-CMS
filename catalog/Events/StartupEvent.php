@@ -24,7 +24,8 @@ class StartupEvent
         }
 
         // Language
-        if ($request->getCookie(config('App')->cookiePrefix . 'language')) {
+
+        if (!is_null($request->getCookie(config('App')->cookiePrefix . 'language'))) {
             if (in_array($code = hex2bin($request->getCookie(config('App')->cookiePrefix . 'language')), config('App')->supportedLocales)) {
                 $languageModel    = new LanguageModel();
                 $language_info    = $languageModel->getLanguageByCode($code);
@@ -37,6 +38,7 @@ class StartupEvent
                 $language->setLocale($language_info['code']);
                 $request->setLocale($language_info['code']);
             }
+                
         } else {
             if (in_array($registry->get('config_language'), config('App')->supportedLocales)) {
                 $languageModel = new LanguageModel();

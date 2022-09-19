@@ -12,6 +12,7 @@ class StartupEvent
     {
         $registry = Services::registry();
         $language = Services::language();
+        $request  = Services::request();
 
         // Settings
         $settingModel = new SettingModel();
@@ -21,9 +22,8 @@ class StartupEvent
         }
         
         // Language
+        if ($registry->get('config_admin_language')) {
         $languageModel = new LanguageModel();
-        $supportedLocales = config('App')->supportedLocales;
-        if (in_array($registry->get('config_admin_language'), $supportedLocales)) {
             $language_info = $languageModel->getLanguageByCode($registry->get('config_admin_language'));
             $registry->set([
                 'config_language_id' => $language_info['language_id'],
@@ -31,6 +31,7 @@ class StartupEvent
             ]);
             // Change Default Locale
             $language->setLocale($language_info['code']);
+            $request->setLocale($language_info['code']);
         }
 
 

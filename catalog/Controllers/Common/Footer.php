@@ -20,7 +20,7 @@ class Footer extends BaseController
                 $data['informations'][] = [
                     'information_id' => $result['information_id'],
                     'title'          => $result['title'],
-                    'href'           => base_url('information/information?information_id=' . $result['information_id']),
+                    'href'           => base_url($result['keyword']),
                 ];
             }
         }
@@ -45,7 +45,7 @@ class Footer extends BaseController
         }
 
         // Social
-        $data['contact']     = base_url('information/contact');
+        $data['contact']     = route_to('contact_us');
         $data['login']       = base_url('account/login');
         $data['register']    = base_url('account/register');
 

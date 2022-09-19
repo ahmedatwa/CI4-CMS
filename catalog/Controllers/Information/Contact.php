@@ -25,6 +25,7 @@ class Contact extends BaseController
         $data['address']      = nl2br($this->registry->get('config_address'));
         $data['telephone']    = $this->registry->get('config_telephone');
         $data['config_email'] = $this->registry->get('config_email');
+        $data['send']         = base_url('index.php/information/contact/send');
 
         $data['open_hours'] = [];
 

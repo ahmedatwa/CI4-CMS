@@ -83,7 +83,7 @@
 $('#button-contact').on('click', function() {
 		let $node = this;
 		$.ajax({
-			url: 'information/contact/send',
+			url: '{{ send }}',
 			headers: {
               "X-Requested-With": "XMLHttpRequest"
            },
