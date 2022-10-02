@@ -35,24 +35,22 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Common\Home::index', ['as' => 'home']);
 
 // Information
-//$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact_us']);
-
-//$routes->add('(^sp-.*$i)', 'Information\Information::index/$1', ['as' => 'information']);
-//$routes->add('[^sp-]', 'Information\Information::index/$1',  ['as' => 'information']);
-
+$routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact_us']);
+$routes->add('((?=sp-)[a-zA-z- 0-9]+$)', 'Information\Information::index/$1');
+//
 // Category
-//$routes->add('{locale}/category/(:alphanum)', 'Product\Category::index/$1/$2', ['as' => 'category']);
+$routes->add('{locale}/category/(:alphanum)', 'Product\Category::index/$1/$2', ['as' => 'category']);
 
 // Account
-// $routes->group('{locale}/account', function($routes)
-// {
-// 	$routes->add('login', 'Account/Login::index', ['as' => 'account_login']);
-//     $routes->add('register', 'Account/Register::index', ['as' => 'account_register']);
-// 	$routes->add('dashboard', 'Account/Dashboard::index/$1', ['as' => 'account_dashboard']);
-// 	$routes->add('success', 'Account/Success::index/$1', ['as' => 'account_success']);
-// 	$routes->add('logout', 'Account/Logout::index', ['as' => 'account_logout']);
+$routes->group('{locale}/account', function($routes)
+{
+	$routes->add('login', 'Account\Login::index', ['as' => 'account_login']);
+    $routes->add('register', 'Account\Register::index', ['as' => 'account_register']);
+	$routes->add('dashboard', 'Account\Dashboard::index/$1', ['as' => 'account_dashboard']);
+	$routes->add('success', 'Account\Success::index/$1', ['as' => 'account_success']);
+	$routes->add('logout', 'Account\Logout::index', ['as' => 'account_logout']);
 
-// });
+ });
 
 /*
  * --------------------------------------------------------------------
@@ -67,6 +65,7 @@ $routes->get('/', 'Common\Home::index', ['as' => 'home']);
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
+
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
 {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';

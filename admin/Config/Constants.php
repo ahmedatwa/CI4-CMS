@@ -83,5 +83,5 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
  |
 */
 defined('DIR_IMAGE') || define('DIR_IMAGE', realpath(FCPATH . '../images') . '/');
-defined('APP_VERSION') || define('APP_VERSION', '2.1');
-defined('CI_VERSION') || define('CI_VERSION', '4.1.8');
+defined('APP_VERSION') || define('APP_VERSION', '3.0.0');
+defined('CI_VERSION') || define('CI_VERSION', '4.2.6');

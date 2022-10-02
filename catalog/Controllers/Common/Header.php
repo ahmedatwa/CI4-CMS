@@ -95,6 +95,7 @@ class Header extends BaseController
         $data['username'] = $this->customer->getName();
 
         $data['login']     = route_to('account_login');
+        $data['register']  = route_to('account_register');
         $data['profile']   = route_to('account_profile');
         $data['dashboard'] = route_to('account_dashboard');
         $data['logout']    = route_to('account_logout');
