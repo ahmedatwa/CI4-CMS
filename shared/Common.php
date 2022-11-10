@@ -21,8 +21,6 @@
 */
 use Config\Services;
 use Config\App;
-use Shared\Models\Localisation\CurrencyModel;
-use Shared\Models\Design\TranslationModel;
 
 //--------------------------------------------------------------------
 
@@ -53,7 +51,7 @@ if (! function_exists('currencyFormat')) {
      */
     function currencyFormat(float $number): string
     {
-        $currencyModel = new CurrencyModel();
+        $currencyModel = model('Shared\Models\Localisation\CurrencyModel', false);
     
         if (Services::request()->getCookie(config('App')->cookiePrefix . 'currency')) {
             $code = Services::request()->getCookie(config('App')->cookiePrefix . 'currency', FILTER_SANITIZE_STRING);
@@ -124,21 +122,22 @@ if (! function_exists('slash_item')) {
  //--------------------------------------------------------------------
  if (! function_exists('lang')) {
      /**
-      * A convenience method to translate a string or array of them and format
-      * the result with the intl extension's MessageFormatter.
+      * A convenience method to translate a string or array of data and format
+      * the result with the intl extension MessageFormatter.
       *
       * @return string
       */
      function lang(string $line, array $args = [], ?string $locale = null)
      {
+        
          $tempData = [];
 
          $locale = Services::registry()->get('locale') ?? Services::request()->getLocale();
    
-         // getting the parsed the line
+         // getting the parsed line
          if (strpos($line, '.') == false) {
 
-           // fill the array with controller lang strings
+           // fill array with controller lang strings
              if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
                  $tempData[$line] = require($file);
              }
@@ -149,7 +148,7 @@ if (! function_exists('slash_item')) {
              }
             
              // Replace the data with any keys set by language editor
-             $translationModel = new TranslationModel();
+             $translationModel = model('Shared\Models\Design\TranslationModel', false);
              $results = $translationModel->where([
                             'route'       => $line,
                             'language_id' => Services::registry()->get('config_language_id')
@@ -163,7 +162,7 @@ if (! function_exists('slash_item')) {
                  }
              }
          }
-      
+
          // set the template data
          Services::template()->setData($tempData);
 

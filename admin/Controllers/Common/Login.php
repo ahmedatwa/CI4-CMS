@@ -63,7 +63,7 @@ class Login extends BaseController
         $data['footer'] = view_cell('\Admin\Controllers\Common\Footer::index');
         
         // Make language data available to view  
-        lang('common/login');
+        lang('Common/Login');
 
         return $this->template->render('common/login', $data);
     }

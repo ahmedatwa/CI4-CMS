@@ -33,7 +33,7 @@ use Throwable;
  * @property mixed      $encrypt
  * @property array      $failover
  * @property string     $hostname
- * @property mixed      $lastQuery
+ * @property Query      $lastQuery
  * @property string     $password
  * @property bool       $pConnect
  * @property int|string $port
@@ -154,7 +154,7 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Encryption flag/data
      *
-     * @var mixed
+     * @var array|bool
      */
     protected $encrypt = false;
 
@@ -185,7 +185,7 @@ abstract class BaseConnection implements ConnectionInterface
      * The last query object that was executed
      * on this connection.
      *
-     * @var mixed
+     * @var Query
      */
     protected $lastQuery;
 
@@ -358,9 +358,9 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Initializes the database connection/settings.
      *
-     * @throws DatabaseException
-     *
      * @return mixed
+     *
+     * @throws DatabaseException
      */
     public function initialize()
     {
@@ -427,13 +427,6 @@ abstract class BaseConnection implements ConnectionInterface
     }
 
     /**
-     * Connect to the database.
-     *
-     * @return mixed
-     */
-    abstract public function connect(bool $persistent = false);
-
-    /**
      * Close the database connection.
      */
     public function close()
@@ -462,14 +455,6 @@ abstract class BaseConnection implements ConnectionInterface
     }
 
     /**
-     * Keep or establish the connection if no queries have been sent for
-     * a length of time exceeding the server's idle timeout.
-     *
-     * @return mixed
-     */
-    abstract public function reconnect();
-
-    /**
      * Returns the actual connection object. If both a 'read' and 'write'
      * connection has been specified, you can pass either term in to
      * get that connection. If you pass either alias in and only a single
@@ -482,13 +467,6 @@ abstract class BaseConnection implements ConnectionInterface
         // @todo work with read/write connections
         return $this->connID;
     }
-
-    /**
-     * Select a specific database table to use.
-     *
-     * @return mixed
-     */
-    abstract public function setDatabase(string $databaseName);
 
     /**
      * Returns the name of the current database being used.
@@ -525,11 +503,6 @@ abstract class BaseConnection implements ConnectionInterface
     {
         return $this->DBDriver;
     }
-
-    /**
-     * Returns a string containing the version of the database being used.
-     */
-    abstract public function getVersion(): string;
 
     /**
      * Sets the Table Aliases to use. These are typically
@@ -862,9 +835,9 @@ abstract class BaseConnection implements ConnectionInterface
      *
      * @param array|string $tableName
      *
-     * @throws DatabaseException
-     *
      * @return BaseBuilder
+     *
+     * @throws DatabaseException
      */
     public function table($tableName)
     {
@@ -932,7 +905,7 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Returns the last query's statement object.
      *
-     * @return mixed
+     * @return Query
      */
     public function getLastQuery()
     {
@@ -1149,9 +1122,10 @@ abstract class BaseConnection implements ConnectionInterface
      *
      * This function escapes column and table names
      *
-     * @param mixed $item
+     * @param array|string $item
      *
-     * @return mixed
+     * @return array|string
+     * @phpstan-return ($item is array ? array : string)
      */
     public function escapeIdentifiers($item)
     {
@@ -1231,9 +1205,10 @@ abstract class BaseConnection implements ConnectionInterface
      * Escapes data based on type.
      * Sets boolean and null types
      *
-     * @param mixed $str
+     * @param array|bool|float|int|object|string|null $str
      *
-     * @return mixed
+     * @return array|float|int|string
+     * @phpstan-return ($str is array ? array : float|int|string)
      */
     public function escape($str)
     {
@@ -1359,9 +1334,9 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Returns an array of table names
      *
-     * @throws DatabaseException
-     *
      * @return array|bool
+     *
+     * @throws DatabaseException
      */
     public function listTables(bool $constrainByPrefix = false)
     {
@@ -1450,9 +1425,9 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Fetch Field Names
      *
-     * @throws DatabaseException
-     *
      * @return array|false
+     *
+     * @throws DatabaseException
      */
     public function getFieldNames(string $table)
     {
@@ -1536,20 +1511,34 @@ abstract class BaseConnection implements ConnectionInterface
 
     /**
      * Disables foreign key checks temporarily.
+     *
+     * @return bool
      */
     public function disableForeignKeyChecks()
     {
         $sql = $this->_disableForeignKeyChecks();
+
+        if ($sql === '') {
+            // The feature is not supported.
+            return false;
+        }
 
         return $this->query($sql);
     }
 
     /**
      * Enables foreign key checks temporarily.
+     *
+     * @return bool
      */
     public function enableForeignKeyChecks()
     {
         $sql = $this->_enableForeignKeyChecks();
+
+        if ($sql === '') {
+            // The feature is not supported.
+            return false;
+        }
 
         return $this->query($sql);
     }
@@ -1644,6 +1633,38 @@ abstract class BaseConnection implements ConnectionInterface
      * @see    getForeignKeyData()
      */
     abstract protected function _foreignKeyData(string $table): array;
+
+    /**
+     * Platform-specific SQL statement to disable foreign key checks.
+     *
+     * If this feature is not supported, return empty string.
+     *
+     * @TODO This method should be moved to an interface that represents foreign key support.
+     *
+     * @return string
+     *
+     * @see disableForeignKeyChecks()
+     */
+    protected function _disableForeignKeyChecks()
+    {
+        return '';
+    }
+
+    /**
+     * Platform-specific SQL statement to enable foreign key checks.
+     *
+     * If this feature is not supported, return empty string.
+     *
+     * @TODO This method should be moved to an interface that represents foreign key support.
+     *
+     * @return string
+     *
+     * @see enableForeignKeyChecks()
+     */
+    protected function _enableForeignKeyChecks()
+    {
+        return '';
+    }
 
     /**
      * Accessor for properties if they exist.
