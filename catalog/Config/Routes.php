@@ -45,6 +45,7 @@ $routes->add('{locale}/category/(:alphanum)', 'Product\Category::index/$1/$2', [
 $routes->group('{locale}/account', function($routes)
 {
 	$routes->add('login', 'Account\Login::index', ['as' => 'account_login']);
+	$routes->add('authenticate', 'Account\Login::authenticate', ['as' => 'authenticate']);
     $routes->add('register', 'Account\Register::index', ['as' => 'account_register']);
 	$routes->add('dashboard', 'Account\Dashboard::index/$1', ['as' => 'account_dashboard']);
 	$routes->add('success', 'Account\Success::index/$1', ['as' => 'account_success']);

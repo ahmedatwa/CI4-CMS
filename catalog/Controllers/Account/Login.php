@@ -31,7 +31,7 @@ class Login extends BaseController
         $data['text_register'] = sprintf(lang('account/login.text_register'), base_url('account/register'));
         $data['forgotton']     = route_to('account_forgotten') ?: base_url('account/forgotten');
 
-        $data['login'] = base_url('account/login/authenticate');
+        $data['login'] = route_to('authenticate');
 
         $data['header']        = view_cell("\Catalog\Controllers\Common\Header::index");
         $data['menu']          = view_cell("\Catalog\Controllers\Common\Menu::index");
