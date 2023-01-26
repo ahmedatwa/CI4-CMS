@@ -3,6 +3,7 @@
 namespace Extensions\Models\Dashboard;
 
 use CodeIgniter\Model;
+use CodeIgniter\I18n\Time;
 
 class CustomerOnlineModel extends Model
 {
@@ -36,7 +37,9 @@ class CustomerOnlineModel extends Model
     public function getTotalOnline()
     {
         $builder = $this->db->table($this->table);
-        return $builder->countAll();
+        return $builder->select()
+                ->where('date_added >=',  strtotime(date('Y-m-d')))
+                ->countAllResults();
     }
 
     public function up()

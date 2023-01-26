@@ -82,10 +82,6 @@ class Customer_online extends BaseController
             $data['dashboard_customer_online'] = [];
         }
 
-        $data['header']       = view_cell("\Admin\Controllers\Common\Header::index");
-        $data['column_left']  = view_cell("\Admin\Controllers\Common\column_left::index");
-        $data['footer']       = view_cell("\Admin\Controllers\Common\Footer::index");
-
         lang('Extensions\Dashboard\Customer_online');
 
         return $this->template->render('Extensions\Views\Dashboard\customer_online_form', $data);
