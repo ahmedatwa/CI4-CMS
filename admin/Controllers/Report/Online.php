@@ -96,6 +96,9 @@ class Online extends BaseController
 
         lang('report/online');
 
+        $onlineModel = new CustomerOnlineModel();
+        var_dump($onlineModel->getTotalOnline());
+
         return $this->template->render('report/online', $data);
     }
 
