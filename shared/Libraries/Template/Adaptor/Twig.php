@@ -139,7 +139,7 @@ class Twig
         // set the language Data
         if (!empty($this->tempData) && isset($this->tempData)) {
             foreach ($this->tempData as $key => $result) {
-                $data = array_merge($result, $data);
+                $data = array_merge($data, $result);
             }
         }
         

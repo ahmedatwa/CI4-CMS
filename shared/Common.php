@@ -137,24 +137,33 @@ if (! function_exists('slash_item')) {
          // getting the parsed line
          if (strpos($line, '.') == false) {
 
-           // fill array with controller lang strings
-           // fallback to default locale if current locale files not found
-             if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
+            /** 
+             * Load the main locale file if found
+             * fallback to default locale if current locale files not found
+            */
+            if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
                  $tempData[$line] = require($file);
              } else {
                 $file = Services::locator()->locateFile(ucwords($line, '/'), "Language/" . config('APP')->defaultLocale, 'php');
-                $tempData[$line] = require($file);
+                if($file) {
+                    $tempData[$line] = require($file);
+                } else {
+                    throw \CodeIgniter\Files\Exceptions\FileNotFoundException::forFileNotFound("Language/" . $locale ."/" . $line);
+                }
              }
 
-            // Load the main locale file if found
-            // fallback to default locale if current locale files not found
+            /** 
+             * Load the main locale file if found
+             * fallback to default locale if current locale files not found
+            */
              if ($mainLangFile = Services::locator()->locateFile(ucwords($locale), "Language/{$locale}", 'php')) {
                  $tempData[$locale] = require($mainLangFile);
-             } else {
+             } elseif(!$mainLangFile) {
                 $mainLangFile = Services::locator()->locateFile(ucwords(config('APP')->defaultLocale), "Language/" . config('APP')->defaultLocale, 'php');
                 $tempData[$locale] = require($mainLangFile);
-             }
-
+            } else {
+                throw \CodeIgniter\Files\Exceptions\FileNotFoundException::forFileNotFound("Language/" . $locale ."/" . $locale);
+            }
              
              // Replace the data with any keys set by language editor
              $translationModel = model('Shared\Models\Design\TranslationModel', false);
