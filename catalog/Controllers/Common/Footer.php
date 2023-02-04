@@ -20,7 +20,7 @@ class Footer extends BaseController
                 $data['informations'][] = [
                     'information_id' => $result['information_id'],
                     'title'          => $result['title'],
-                    'href'           => base_url($result['keyword']),
+                    'href'           => base_url($this->locale . '/' . $result['keyword']),
                 ];
             }
         }
