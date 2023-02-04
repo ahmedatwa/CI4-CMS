@@ -54,7 +54,7 @@ class PermissionFilter implements FilterInterface
             // redirect if not logged in or token expired
             if (!in_array($route, $ignoreToken) && (!$request->getVar('user_token')) && !session('user_token') || ($request->getVar('user_token') != session('user_token'))) {                
                 echo view_cell('\Admin\Controllers\Common\Login::index', ['redirect' => strtolower($route), 'warning' => lang('en.error.token')]);
-                exit(403);
+                exit(403); // Forbidden
             }
 
             // Ignore controllers for access Check
@@ -69,11 +69,11 @@ class PermissionFilter implements FilterInterface
 
             if (!in_array($route, $ignoreAccess) && !$user->hasPermission('access', $route)) {
                 echo view_cell('\Admin\Controllers\Error\Permission::index');
-                exit(401);
+                exit(401); //Forbidden
             }
         } else {
             throw new \Exception('Error: Route is not found' . $route);
-            exit(404);
+            exit(404); // Forbidden
         }
     }
 
