@@ -11,7 +11,7 @@ class Currency extends BaseController
     public function index()
     {
         if ($this->request->getCookie(config('App')->cookiePrefix . 'currency')) {
-            $code = hex2bin($this->request->getCookie(config('App')->cookiePrefix . 'currency', FILTER_SANITIZE_STRING));
+            $code = hex2bin($this->request->getCookie(config('App')->cookiePrefix . 'currency'));
         } else {
             $code = $this->registry->get('config_currency');
         }

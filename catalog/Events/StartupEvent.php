@@ -81,7 +81,7 @@ class StartupEvent
             $response->setCookie($cookie);
         } else {
             
-            $registry->set('config_currency', strtolower(hex2bin($request->getCookie(config('App')->cookiePrefix . 'currency', FILTER_SANITIZE_STRING))));
+            $registry->set('config_currency', strtolower(hex2bin($request->getCookie(config('App')->cookiePrefix . 'currency'))));
 
         }
 
