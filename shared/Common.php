@@ -138,15 +138,24 @@ if (! function_exists('slash_item')) {
          if (strpos($line, '.') == false) {
 
            // fill array with controller lang strings
+           // fallback to default locale if current locale files not found
              if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
                  $tempData[$line] = require($file);
+             } else {
+                $file = Services::locator()->locateFile(ucwords($line, '/'), "Language/" . config('APP')->defaultLocale, 'php');
+                $tempData[$line] = require($file);
              }
 
-             // Load the main locale file if found
+            // Load the main locale file if found
+            // fallback to default locale if current locale files not found
              if ($mainLangFile = Services::locator()->locateFile(ucwords($locale), "Language/{$locale}", 'php')) {
                  $tempData[$locale] = require($mainLangFile);
+             } else {
+                $mainLangFile = Services::locator()->locateFile(ucwords(config('APP')->defaultLocale), "Language/" . config('APP')->defaultLocale, 'php');
+                $tempData[$locale] = require($mainLangFile);
              }
-            
+
+             
              // Replace the data with any keys set by language editor
              $translationModel = model('Shared\Models\Design\TranslationModel', false);
              $results = $translationModel->where([
@@ -162,7 +171,7 @@ if (! function_exists('slash_item')) {
                  }
              }
          }
-
+         
          // set the template data
          Services::template()->setData($tempData);
 

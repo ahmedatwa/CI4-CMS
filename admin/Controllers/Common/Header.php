@@ -53,7 +53,7 @@ class Header extends BaseController
             }
         }
         
-        $data['locale'] = strtoupper($this->registry->get('locale')) ?? strtoupper($this->request->getLocale());
+        $data['locale'] = $this->registry->get('locale') ? strtoupper($this->registry->get('locale')) :  strtoupper($this->request->getLocale());
 
         lang('common/header'); 
 
