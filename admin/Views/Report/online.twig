@@ -5,10 +5,10 @@
 			<div class="page-header">
 				<div class="container-fluid">
 					<div class="float-right">
-						<a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-delete" data-placement="top"
+						{# <a href="{{ action }}" role="button" data-toggle-tooltip="tooltip" name="button-delete" data-placement="top"
 							title="{{ button_delete }}" class="btn btn-danger" form="form-online">
 							<i class="far fa-trash-alt"></i>
-						</a>
+						</a> #}
 					</div>
 					<h1>{{ heading_title }}</h1>
 					<ul class="breadcrumb">
@@ -49,10 +49,10 @@
 										{% for customer in customers %}
 											<tr>
 											<th scope="row">
-												{% if customer.customer_online_id in selected %}
-													<input type="checkbox" name="selected[]" value="{{ customer.customer_online_id }}" checked="checked"/>
+												{% if customer.ip in selected %}
+													<input type="checkbox" name="selected[]" value="{{ customer.ip }}" checked="checked"/>
 												{% else %}
-													<input type="checkbox" name="selected[]" value="{{ customer.customer_online_id }}"/>
+													<input type="checkbox" name="selected[]" value="{{ customer.ip }}"/>
 												{% endif %}
 											</th>
 												<td>{{ customer.ip }}</td>

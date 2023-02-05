@@ -11,7 +11,7 @@ class OnlineModel extends Model
     protected $table            = 'customer_online';
     protected $primaryKey       = 'ip';
     protected $useAutoIncrement = true;
-    protected $insertID         = 0;
+    protected $insertID         = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
