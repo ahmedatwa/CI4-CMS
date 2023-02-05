@@ -9,7 +9,7 @@ class OnlineModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'customer_online';
-    protected $primaryKey       = 'customer_online_id';
+    protected $primaryKey       = 'ip';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
@@ -37,10 +37,11 @@ class OnlineModel extends Model
 
     public function addOnline(string $ip, int $customer_id, string $url, string $referer)
     {
+        $time = Time::now()->subHours(1);
         $builder = $this->db->table($this->table);
-        $builder->where([
-            'date_added < ' => Time::now()->subHours(1),
-            ])->delete();
+        $builder->where('date_added < ', date('Y-m-d H:i:s', strtotime('-1 hour')));
+        $builder->delete();
+
         $onlineData = [
             'ip'          => $ip,
             'customer_id' => $customer_id,
