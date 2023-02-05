@@ -70,7 +70,6 @@ class Online extends BaseController
             }
 
             $data['customers'][] = [
-                'customer_online_id' => $result['customer_online_id'],
                 'customer_id'        => $result['customer_id'],
                 'ip'                 => $result['ip'],
                 'customer'           => $customer,
@@ -97,7 +96,6 @@ class Online extends BaseController
         lang('report/online');
 
         $onlineModel = new CustomerOnlineModel();
-        var_dump($onlineModel->getTotalOnline());
 
         return $this->template->render('report/online', $data);
     }
