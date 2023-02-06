@@ -10,9 +10,7 @@ class MailEvent
 {
 
     // Catalog\Controllers\Account\Login::authLogin
-    public static function mailLoginAlert() {
-
-    }
+    public static function mailLoginAlert() {}
 
     // Catalog\Model\Account\CustomerModel\editCode
     public static function forgottenMail(string $email, string $code)
