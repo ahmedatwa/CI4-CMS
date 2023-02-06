@@ -33,9 +33,9 @@
 							<table id="table-list" class="table table-bordered" data-order='[[ 1, "asc" ]]'>
 								<thead>
 									<tr>
-										<th width="1%" class="no-sort">
+										{# <th width="1%" class="no-sort">
 											<input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" id="selectAll"/>
-										</th>
+										</th> #}
 										<th>{{ column_ip }}</th>
 										<th>{{ column_customer }}</th>
 										<th>{{ column_url }}</th>
@@ -48,13 +48,13 @@
 									{% if customers %}
 										{% for customer in customers %}
 											<tr>
-											<th scope="row">
+											{# <th scope="row">
 												{% if customer.ip in selected %}
 													<input type="checkbox" name="selected[]" value="{{ customer.ip }}" checked="checked"/>
 												{% else %}
 													<input type="checkbox" name="selected[]" value="{{ customer.ip }}"/>
 												{% endif %}
-											</th>
+											</th> #}
 												<td>{{ customer.ip }}</td>
 												<td>{{ customer.customer }}</td>
 												<td class="text-break">{{ customer.url }}</td>
