@@ -36,6 +36,7 @@ $routes->get('/', 'Common\Home::index', ['as' => 'home']);
 
 // Information
 $routes->add('{locale}/contact-us', 'Information\Contact::index', ['as' => 'contact_us']);
+$routes->add('{locale}/contact-send', 'Information\Contact::send', ['as' => 'contact_send']);
 $routes->add('{locale}/((?=sp-)[a-zA-z- 0-9]+$)', 'Information\Information::index/$1');
 //
 // Category

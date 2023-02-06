@@ -18,14 +18,14 @@ class Contact extends BaseController
 
         $data['breadcrumbs'][] = [
             'text' => lang('information/contact.heading_title'),
-            'href' => base_url('information/contact')
+            'href' => route_to('contact_us')
         ];
 
         $data['site']         = $this->registry->get('config_name');
         $data['address']      = nl2br($this->registry->get('config_address'));
         $data['telephone']    = $this->registry->get('config_telephone');
         $data['config_email'] = $this->registry->get('config_email');
-        $data['send']         = base_url('index.php/information/contact/send');
+        $data['send']         = route_to('contact_send');
 
         $data['open_hours'] = [];
 
@@ -62,10 +62,10 @@ class Contact extends BaseController
                 $email = \Config\Services::email();
 
                 $email->setFrom($this->registry->get('config_email'), $this->registry->get('config_name'));
-                $email->setTo(html_entity_decode($this->request->getPost('name', FILTER_SANITIZE_STRING), ENT_QUOTES, 'UTF-8'));
+                $email->setTo(html_entity_decode($this->request->getPost('name'), ENT_QUOTES, 'UTF-8'));
 
-                $email->setSubject(html_entity_decode(sprintf(lang('information/contact.text_subject'), $this->request->getPost('name', FILTER_SANITIZE_STRING)), ENT_QUOTES, 'UTF-8'));
-                $email->setMessage($this->request->getPost('enquiry', FILTER_SANITIZE_STRING));
+                $email->setSubject(html_entity_decode(sprintf(lang('information/contact.text_subject'), esc($this->request->getPost('name'))), ENT_QUOTES, 'UTF-8'));
+                $email->setMessage(esc($this->request->getPost('enquiry'), 'html'));
             
                 if ($email->send()) {
                     $json['success'] = lang('information/contact.text_success');

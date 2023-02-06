@@ -144,11 +144,8 @@ if (! function_exists('slash_item')) {
             if ($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/{$locale}", 'php')) {
                  $tempData[$line] = require($file);
              } else {
-                $file = Services::locator()->locateFile(ucwords($line, '/'), "Language/" . config('APP')->defaultLocale, 'php');
-                if($file) {
+                if($file = Services::locator()->locateFile(ucwords($line, '/'), "Language/" . config('APP')->defaultLocale, 'php')) {
                     $tempData[$line] = require($file);
-                } else {
-                    throw \CodeIgniter\Files\Exceptions\FileNotFoundException::forFileNotFound("Language/" . $locale ."/" . $line);
                 }
              }
 
@@ -158,12 +155,13 @@ if (! function_exists('slash_item')) {
             */
              if ($mainLangFile = Services::locator()->locateFile(ucwords($locale), "Language/{$locale}", 'php')) {
                  $tempData[$locale] = require($mainLangFile);
-             } elseif(!$mainLangFile) {
-                $mainLangFile = Services::locator()->locateFile(ucwords(config('APP')->defaultLocale), "Language/" . config('APP')->defaultLocale, 'php');
+             } else {
+                if($mainLangFile = Services::locator()->locateFile(ucwords(config('APP')->defaultLocale), "Language/" . config('APP')->defaultLocale, 'php')) {
                 $tempData[$locale] = require($mainLangFile);
             } else {
                 throw \CodeIgniter\Files\Exceptions\FileNotFoundException::forFileNotFound("Language/" . $locale ."/" . $locale);
             }
+        }
              
              // Replace the data with any keys set by language editor
              $translationModel = model('Shared\Models\Design\TranslationModel', false);
