@@ -12,7 +12,11 @@
 namespace CodeIgniter\Test\Mock;
 
 use CodeIgniter\Database\BaseResult;
+use stdClass;
 
+/**
+ * @extends BaseResult<object|resource, object|resource>
+ */
 class MockResult extends BaseResult
 {
     /**
@@ -79,7 +83,7 @@ class MockResult extends BaseResult
      *
      * @param string $className
      *
-     * @return object
+     * @return object|stdClass
      */
     protected function fetchObject($className = 'stdClass')
     {
