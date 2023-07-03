@@ -358,7 +358,8 @@ class Column_left extends BaseController
             'name'         => lang('common/column_left.text_system'),
             'children'     => $system,
         ];
-                
+        
+              
         return $this->template->render('common/column_left', $data);
     }
 }
